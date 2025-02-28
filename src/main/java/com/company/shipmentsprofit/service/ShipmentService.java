@@ -1,10 +1,10 @@
 package com.company.shipmentsprofit.service;
 
-import com.company.shipmentsprofit.dto.ProfitCalculationDto;
+import com.company.shipmentsprofit.dto.response.ProfitCalculationResponse;
 import com.company.shipmentsprofit.entity.Cost;
 import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
-import com.company.shipmentsprofit.mapper.ProfitMapper;
+import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
 import com.company.shipmentsprofit.repository.CostRepository;
 import com.company.shipmentsprofit.repository.IncomeRepository;
 import com.company.shipmentsprofit.repository.ShipmentRepository;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,6 +21,7 @@ public class ShipmentService {
     private final ShipmentRepository shipmentRepository;
     private final IncomeRepository incomeRepository;
     private final CostRepository costRepository;
+
     public ShipmentService(ShipmentRepository shipmentRepository,
                            IncomeRepository incomeRepository,
                            CostRepository costRepository) {
@@ -29,6 +31,11 @@ public class ShipmentService {
     }
 
     public Shipment createShipment(String referenceNumber, LocalDate shipmentDate) {
+
+        if (shipmentRepository.existsByReferenceNumber(referenceNumber)) {
+            throw new InvalidReferenceNumberException("Shipment with reference number " + referenceNumber + " already exists.");
+        }
+
         Shipment shipment = Shipment.builder()
                 .referenceNumber(referenceNumber)
                 .shipmentDate(shipmentDate)
@@ -37,45 +44,50 @@ public class ShipmentService {
         return shipmentRepository.save(shipment);
     }
 
-    public Income addIncomeToShipment(Long shipmentId, String description, Double amount) {
-        Shipment shipment = shipmentRepository.findById(shipmentId)
-                .orElseThrow(() -> new RuntimeException("Shipment not found: " + shipmentId));
+    public Shipment getShipmentByReferenceNumber(String referenceNumber) {
+        return shipmentRepository.findByReferenceNumber(referenceNumber)
+                .orElseThrow(() -> new RuntimeException("Shipment not found with id: " + referenceNumber));
+    }
+
+    public List<Shipment> getAllShipments() {
+        return shipmentRepository.findAll();
+    }
+
+    public Income addIncomeToShipment(String referenceNumber, String description, Double amount) {
+        Shipment shipment = shipmentRepository.findByReferenceNumber(referenceNumber)
+                .orElseThrow(() -> new RuntimeException("Shipment not found: " + referenceNumber));
 
         Income income = Income.builder()
                 .description(description)
                 .amount(amount)
                 .build();
 
-        // Use the helper method in Shipment to maintain the relationship
         shipment.addIncome(income);
 
-        // Save the shipment (which also saves the income due to cascade)
         shipmentRepository.save(shipment);
 
         return income;
     }
 
-    public Cost addCostToShipment(Long shipmentId, String description, Double amount) {
-        Shipment shipment = shipmentRepository.findById(shipmentId)
-                .orElseThrow(() -> new RuntimeException("Shipment not found: " + shipmentId));
+    public Cost addCostToShipment(String referenceNumber, String description, Double amount) {
+        Shipment shipment = shipmentRepository.findByReferenceNumber(referenceNumber)
+                .orElseThrow(() -> new RuntimeException("Shipment not found: " + referenceNumber));
 
         Cost cost = Cost.builder()
                 .description(description)
                 .amount(amount)
                 .build();
 
-        // Use the helper method in Shipment
         shipment.addCost(cost);
 
-        // Save shipment (cascade will handle cost)
         shipmentRepository.save(shipment);
 
         return cost;
     }
 
-    public ProfitCalculationDto calculateProfit(Long shipmentId) {
-        Shipment shipment = shipmentRepository.findById(shipmentId)
-                .orElseThrow(() -> new RuntimeException("Shipment not found: " + shipmentId));
+    public ProfitCalculationResponse calculateProfit(String referenceNumber) {
+        Shipment shipment = shipmentRepository.findByReferenceNumber(referenceNumber)
+                .orElseThrow(() -> new RuntimeException("Shipment not found: " + referenceNumber));
 
         double totalIncome = shipment.getIncomes()
                 .stream()
@@ -89,10 +101,12 @@ public class ShipmentService {
 
         double profitValue = totalIncome - totalCost;
 
-        ProfitCalculationDto dto = ProfitMapper.INSTANCE.shipmentToProfitDto(shipment);
-        dto.setTotalIncome(totalIncome);
-        dto.setTotalCost(totalCost);
-        dto.setProfit(profitValue);
+
+        ProfitCalculationResponse dto = ProfitCalculationResponse.builder()
+                .referenceNumber(referenceNumber)
+                .totalIncome(totalIncome)
+                .totalCost(totalCost)
+                .profit(profitValue).build();
 
         return dto;
     }

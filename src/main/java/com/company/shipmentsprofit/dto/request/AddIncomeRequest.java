@@ -1,4 +1,4 @@
-package com.company.shipmentsprofit.dto;
+package com.company.shipmentsprofit.dto.request;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.company.shipmentsprofit.dto;
+package com.company.shipmentsprofit.dto.request;
 
 import lombok.Getter;
 
@@ -8,5 +8,4 @@ import java.time.LocalDate;
 public class CreateShipmentRequest {
     private String referenceNumber;
     private LocalDate shipmentDate;
-
 }

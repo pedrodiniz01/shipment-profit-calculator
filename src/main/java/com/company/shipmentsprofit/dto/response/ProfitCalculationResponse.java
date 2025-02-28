@@ -1,4 +1,4 @@
-package com.company.shipmentsprofit.dto;
+package com.company.shipmentsprofit.dto.response;
 
 import lombok.*;
 
@@ -7,8 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProfitCalculationDto {
-    private Long shipmentId;
+public class ProfitCalculationResponse {
+    private String referenceNumber;
     private Double totalIncome;
     private Double totalCost;
     private Double profit;

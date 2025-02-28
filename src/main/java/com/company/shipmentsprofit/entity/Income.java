@@ -1,5 +1,6 @@
 package com.company.shipmentsprofit.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class Income {
 
     @ManyToOne
     @JoinColumn(name = "shipment_id")
+    @JsonIgnore
     private Shipment shipment;
 }
