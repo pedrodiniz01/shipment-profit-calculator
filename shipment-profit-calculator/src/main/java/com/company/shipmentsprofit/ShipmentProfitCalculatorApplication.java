@@ -1,13 +1,13 @@
-package com.company.logisticsprofit;
+package com.company.shipmentsprofit;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LogisticsProfitCalculatorApplication {
+public class ShipmentProfitCalculatorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LogisticsProfitCalculatorApplication.class, args);
+		SpringApplication.run(ShipmentProfitCalculatorApplication.class, args);
 	}
 
 }
