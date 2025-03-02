@@ -5,30 +5,20 @@ import com.company.shipmentsprofit.entity.Cost;
 import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
 import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
-import com.company.shipmentsprofit.repository.CostRepository;
-import com.company.shipmentsprofit.repository.IncomeRepository;
+import com.company.shipmentsprofit.exception.ReferenceNumberNotFoundException;
 import com.company.shipmentsprofit.repository.ShipmentRepository;
+import com.company.shipmentsprofit.utils.TransactionUtils;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Transactional
+@AllArgsConstructor
 public class ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
-    private final IncomeRepository incomeRepository;
-    private final CostRepository costRepository;
-
-    public ShipmentService(ShipmentRepository shipmentRepository,
-                           IncomeRepository incomeRepository,
-                           CostRepository costRepository) {
-        this.shipmentRepository = shipmentRepository;
-        this.incomeRepository = incomeRepository;
-        this.costRepository = costRepository;
-    }
 
     public Shipment createShipment(String referenceNumber, LocalDate shipmentDate) {
 
@@ -45,8 +35,7 @@ public class ShipmentService {
     }
 
     public Shipment getShipmentByReferenceNumber(String referenceNumber) {
-        return shipmentRepository.findByReferenceNumber(referenceNumber)
-                .orElseThrow(() -> new RuntimeException("Shipment not found with id: " + referenceNumber));
+        return findShipmentByReferenceNumber(referenceNumber);
     }
 
     public List<Shipment> getAllShipments() {
@@ -54,40 +43,35 @@ public class ShipmentService {
     }
 
     public Income addIncomeToShipment(String referenceNumber, String description, Double amount) {
-        Shipment shipment = shipmentRepository.findByReferenceNumber(referenceNumber)
-                .orElseThrow(() -> new RuntimeException("Shipment not found: " + referenceNumber));
+        Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Income income = Income.builder()
                 .description(description)
                 .amount(amount)
                 .build();
 
-        shipment.addIncome(income);
-
+        TransactionUtils.addIncome(shipment, income);
         shipmentRepository.save(shipment);
 
         return income;
     }
 
     public Cost addCostToShipment(String referenceNumber, String description, Double amount) {
-        Shipment shipment = shipmentRepository.findByReferenceNumber(referenceNumber)
-                .orElseThrow(() -> new RuntimeException("Shipment not found: " + referenceNumber));
+        Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Cost cost = Cost.builder()
                 .description(description)
                 .amount(amount)
                 .build();
 
-        shipment.addCost(cost);
-
+        TransactionUtils.addCost(shipment, cost);
         shipmentRepository.save(shipment);
 
         return cost;
     }
 
     public ProfitCalculationResponse calculateProfit(String referenceNumber) {
-        Shipment shipment = shipmentRepository.findByReferenceNumber(referenceNumber)
-                .orElseThrow(() -> new RuntimeException("Shipment not found: " + referenceNumber));
+        Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         double totalIncome = shipment.getIncomes()
                 .stream()
@@ -101,7 +85,6 @@ public class ShipmentService {
 
         double profitValue = totalIncome - totalCost;
 
-
         ProfitCalculationResponse dto = ProfitCalculationResponse.builder()
                 .referenceNumber(referenceNumber)
                 .totalIncome(totalIncome)
@@ -109,5 +92,10 @@ public class ShipmentService {
                 .profit(profitValue).build();
 
         return dto;
+    }
+
+    private Shipment findShipmentByReferenceNumber(String referenceNumber) {
+        return shipmentRepository.findByReferenceNumber(referenceNumber)
+                .orElseThrow(() -> new ReferenceNumberNotFoundException(String.format("Shipment not found: %s.", referenceNumber)));
     }
 }

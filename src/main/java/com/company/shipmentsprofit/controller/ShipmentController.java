@@ -3,13 +3,10 @@ package com.company.shipmentsprofit.controller;
 import com.company.shipmentsprofit.dto.request.AddCostRequest;
 import com.company.shipmentsprofit.dto.request.AddIncomeRequest;
 import com.company.shipmentsprofit.dto.request.CreateShipmentRequest;
-import com.company.shipmentsprofit.dto.response.ProfitCalculationResponse;
 import com.company.shipmentsprofit.entity.Cost;
-import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
-import com.company.shipmentsprofit.exception.ErrorResponse;
-import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
 import com.company.shipmentsprofit.service.ShipmentService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,62 +16,38 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/shipments")
+@AllArgsConstructor
 public class ShipmentController {
 
     private final ShipmentService shipmentService;
 
-    public ShipmentController(ShipmentService shipmentService) {
-        this.shipmentService = shipmentService;
-    }
-
     @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createShipment(@RequestBody CreateShipmentRequest request) {
-        try {
-            Shipment shipment = shipmentService.createShipment(request.getReferenceNumber(), request.getShipmentDate());
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(shipment);
-        } catch (InvalidReferenceNumberException ex) {
-            return ResponseEntity.badRequest().body(new ErrorResponse("INVALID_REFERENCE_NUMBER", ex.getMessage()));
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(shipmentService.createShipment(request.getReferenceNumber(), request.getShipmentDate()));
     }
 
     @GetMapping("/{referenceNumber}")
-    public ResponseEntity<Shipment> getShipmentByReferenceNumber(@PathVariable String referenceNumber) {
-        Shipment shipment = shipmentService.getShipmentByReferenceNumber(referenceNumber);
-        return ResponseEntity.ok(shipment);
+    public ResponseEntity<?> getShipmentByReferenceNumber(@PathVariable String referenceNumber) {
+        return ResponseEntity.ok(shipmentService.getShipmentByReferenceNumber(referenceNumber));
     }
 
     @GetMapping
     public ResponseEntity<List<Shipment>> getAllShipments() {
-        List<Shipment> shipments = shipmentService.getAllShipments();
-        return ResponseEntity.ok(shipments);
+        return ResponseEntity.ok(shipmentService.getAllShipments());
     }
 
     @PostMapping("/{referenceNumber}/income")
-    public ResponseEntity<Income> addIncome(@PathVariable String referenceNumber,
-                                            @RequestBody AddIncomeRequest request) {
-        Income income = shipmentService.addIncomeToShipment(
-                referenceNumber,
-                request.getDescription(),
-                request.getAmount()
-        );
-        return ResponseEntity.ok(income);
+    public ResponseEntity<?> addIncome(@PathVariable String referenceNumber, @RequestBody AddIncomeRequest request) {
+        return ResponseEntity.ok(shipmentService.addIncomeToShipment(referenceNumber, request.getDescription(), request.getAmount()));
     }
 
     @PostMapping("/{referenceNumber}/costs")
-    public ResponseEntity<Cost> addCost(@PathVariable String referenceNumber,
-                                        @RequestBody AddCostRequest request) {
-        Cost cost = shipmentService.addCostToShipment(
-                referenceNumber,
-                request.getDescription(),
-                request.getAmount()
-        );
-        return ResponseEntity.ok(cost);
+    public ResponseEntity<Cost> addCost(@PathVariable String referenceNumber, @RequestBody AddCostRequest request) {
+        return ResponseEntity.ok(shipmentService.addCostToShipment(referenceNumber, request.getDescription(), request.getAmount()));
     }
 
     @GetMapping("/{referenceNumber}/profit")
-    public ResponseEntity<ProfitCalculationResponse> calculateProfit(@PathVariable String referenceNumber) {
-        ProfitCalculationResponse result = shipmentService.calculateProfit(referenceNumber);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<?> calculateProfit(@PathVariable String referenceNumber) {
+        return ResponseEntity.ok(shipmentService.calculateProfit(referenceNumber));
     }
 }

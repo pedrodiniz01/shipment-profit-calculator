@@ -30,22 +30,4 @@ public class Shipment {
 
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cost> costs = new ArrayList<>();
-
-    public void addIncome(Income income) {
-        this.incomes.add(income);
-        income.setShipment(this);
-    }
-    public void removeIncome(Income income) {
-        this.incomes.remove(income);
-        income.setShipment(null);
-    }
-
-    public void addCost(Cost cost) {
-        this.costs.add(cost);
-        cost.setShipment(this);
-    }
-    public void removeCost(Cost cost) {
-        this.costs.remove(cost);
-        cost.setShipment(null);
-    }
 }
