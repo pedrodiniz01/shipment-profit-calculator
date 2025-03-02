@@ -2,10 +2,13 @@ package com.company.shipmentsprofit.service;
 
 import com.company.shipmentsprofit.dto.request.AddCostRequest;
 import com.company.shipmentsprofit.dto.request.AddIncomeRequest;
+import com.company.shipmentsprofit.dto.response.ShipmentFinancialSummaryResponse;
 import com.company.shipmentsprofit.dto.response.ShipmentSummaryResponse;
 import com.company.shipmentsprofit.entity.Cost;
 import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
+import com.company.shipmentsprofit.enums.CostType;
+import com.company.shipmentsprofit.enums.IncomeType;
 import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
 import com.company.shipmentsprofit.exception.ReferenceNumberNotFoundException;
 import com.company.shipmentsprofit.mapper.Mapper;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -54,9 +58,9 @@ public class ShipmentService {
     public Income addIncomeToShipment(String referenceNumber, AddIncomeRequest request) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
-       Income income = mapper.toIncome(request);
-
+        Income income = mapper.toIncome(request);
         IncomeUtils.addIncome(shipment, income);
+
         shipmentRepository.save(shipment);
 
         return income;
@@ -66,11 +70,25 @@ public class ShipmentService {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Cost cost = mapper.toCost(request);
-
         CostUtils.addCost(shipment, cost);
+
         shipmentRepository.save(shipment);
 
         return cost;
+    }
+
+    public ShipmentFinancialSummaryResponse getShipmentFinancialSummary(String referenceNumber) {
+        Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
+
+        Map<IncomeType, Double> incomeByCategory = IncomeUtils.calculateIncomesByCategory(shipment);
+        Map<CostType, Double> costByCategory = CostUtils.calculateCostsByCategory(shipment);
+
+        return ShipmentFinancialSummaryResponse.builder()
+                .referenceNumber(shipment.getReferenceNumber())
+                .shipmentDate(shipment.getShipmentDate())
+                .incomeByCategory(incomeByCategory)
+                .costByCategory(costByCategory)
+                .build();
     }
 
     private ShipmentSummaryResponse buildShipmentSummary(Shipment shipment) {

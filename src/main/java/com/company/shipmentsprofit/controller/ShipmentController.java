@@ -3,6 +3,7 @@ package com.company.shipmentsprofit.controller;
 import com.company.shipmentsprofit.dto.request.AddCostRequest;
 import com.company.shipmentsprofit.dto.request.AddIncomeRequest;
 import com.company.shipmentsprofit.dto.request.CreateShipmentRequest;
+import com.company.shipmentsprofit.dto.response.ShipmentFinancialSummaryResponse;
 import com.company.shipmentsprofit.dto.response.ShipmentSummaryResponse;
 import com.company.shipmentsprofit.entity.Cost;
 import com.company.shipmentsprofit.entity.Income;
@@ -31,6 +32,11 @@ public class ShipmentController {
     @GetMapping("/{referenceNumber}")
     public ResponseEntity<ShipmentSummaryResponse> getShipmentByReferenceNumber(@PathVariable String referenceNumber) {
         return ResponseEntity.ok(shipmentService.getShipmentByReferenceNumber(referenceNumber));
+    }
+
+    @GetMapping("/{referenceNumber}/financial-summary")
+    public ResponseEntity<ShipmentFinancialSummaryResponse> getShipmentFinancialSummary(@PathVariable String referenceNumber) {
+        return ResponseEntity.ok(shipmentService.getShipmentFinancialSummary(referenceNumber));
     }
 
     @GetMapping
