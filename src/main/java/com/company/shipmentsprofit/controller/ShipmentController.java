@@ -3,7 +3,9 @@ package com.company.shipmentsprofit.controller;
 import com.company.shipmentsprofit.dto.request.AddCostRequest;
 import com.company.shipmentsprofit.dto.request.AddIncomeRequest;
 import com.company.shipmentsprofit.dto.request.CreateShipmentRequest;
+import com.company.shipmentsprofit.dto.response.ProfitCalculationResponse;
 import com.company.shipmentsprofit.entity.Cost;
+import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
 import com.company.shipmentsprofit.service.ShipmentService;
 import lombok.AllArgsConstructor;
@@ -22,12 +24,12 @@ public class ShipmentController {
     private final ShipmentService shipmentService;
 
     @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createShipment(@RequestBody CreateShipmentRequest request) {
+    public ResponseEntity<Shipment> createShipment(@RequestBody CreateShipmentRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(shipmentService.createShipment(request.getReferenceNumber(), request.getShipmentDate()));
     }
 
     @GetMapping("/{referenceNumber}")
-    public ResponseEntity<?> getShipmentByReferenceNumber(@PathVariable String referenceNumber) {
+    public ResponseEntity<Shipment> getShipmentByReferenceNumber(@PathVariable String referenceNumber) {
         return ResponseEntity.ok(shipmentService.getShipmentByReferenceNumber(referenceNumber));
     }
 
@@ -37,17 +39,17 @@ public class ShipmentController {
     }
 
     @PostMapping("/{referenceNumber}/income")
-    public ResponseEntity<?> addIncome(@PathVariable String referenceNumber, @RequestBody AddIncomeRequest request) {
-        return ResponseEntity.ok(shipmentService.addIncomeToShipment(referenceNumber, request.getDescription(), request.getAmount()));
+    public ResponseEntity<Income> addIncome(@PathVariable String referenceNumber, @RequestBody AddIncomeRequest request) {
+        return ResponseEntity.ok(shipmentService.addIncomeToShipment(referenceNumber, request.getIncomeType(), request.getAmount()));
     }
 
     @PostMapping("/{referenceNumber}/costs")
     public ResponseEntity<Cost> addCost(@PathVariable String referenceNumber, @RequestBody AddCostRequest request) {
-        return ResponseEntity.ok(shipmentService.addCostToShipment(referenceNumber, request.getDescription(), request.getAmount()));
+        return ResponseEntity.ok(shipmentService.addCostToShipment(referenceNumber, request.getCostType(), request.getAmount()));
     }
 
     @GetMapping("/{referenceNumber}/profit")
-    public ResponseEntity<?> calculateProfit(@PathVariable String referenceNumber) {
+    public ResponseEntity<ProfitCalculationResponse> calculateProfit(@PathVariable String referenceNumber) {
         return ResponseEntity.ok(shipmentService.calculateProfit(referenceNumber));
     }
 }

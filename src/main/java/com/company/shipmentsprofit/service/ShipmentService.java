@@ -4,6 +4,8 @@ import com.company.shipmentsprofit.dto.response.ProfitCalculationResponse;
 import com.company.shipmentsprofit.entity.Cost;
 import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
+import com.company.shipmentsprofit.enums.CostType;
+import com.company.shipmentsprofit.enums.IncomeType;
 import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
 import com.company.shipmentsprofit.exception.ReferenceNumberNotFoundException;
 import com.company.shipmentsprofit.repository.ShipmentRepository;
@@ -42,11 +44,11 @@ public class ShipmentService {
         return shipmentRepository.findAll();
     }
 
-    public Income addIncomeToShipment(String referenceNumber, String description, Double amount) {
+    public Income addIncomeToShipment(String referenceNumber, IncomeType type, Double amount) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Income income = Income.builder()
-                .description(description)
+                .description(type.name())
                 .amount(amount)
                 .build();
 
@@ -56,11 +58,11 @@ public class ShipmentService {
         return income;
     }
 
-    public Cost addCostToShipment(String referenceNumber, String description, Double amount) {
+    public Cost addCostToShipment(String referenceNumber, CostType type, Double amount) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Cost cost = Cost.builder()
-                .description(description)
+                .description(type.name())
                 .amount(amount)
                 .build();
 
