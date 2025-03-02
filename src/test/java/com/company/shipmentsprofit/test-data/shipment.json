@@ -1,0 +1,16 @@
+{
+  "referenceNumber": "SHIP-1001",
+  "incomes": [
+    { "description": "CUSTOMER_PAYMENT", "amount": 1000.0 },
+    { "description": "AGENT_COMMISSION", "amount": 200.0 },
+    { "description": "AGENT_COMMISSION", "amount": 200.0 },
+    { "description": "AGENT_COMMISSION", "amount": 200.0 }
+  ],
+  "costs": [
+    { "description": "FUEL", "amount": 500.0 },
+    { "description": "LABOR", "amount": 300.0 },
+    { "description": "LABOR", "amount": 500.0 },
+    { "description": "TAXES", "amount": 300.0 },
+    { "description": "TAXES", "amount": 300.0 }
+  ]
+}

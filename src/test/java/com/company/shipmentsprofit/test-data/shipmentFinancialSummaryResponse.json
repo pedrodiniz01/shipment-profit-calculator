@@ -1,0 +1,13 @@
+{
+  "referenceNumber": "SHIP-1001",
+  "shipmentDate": null,
+  "incomeByCategory": {
+    "CUSTOMER_PAYMENT": 1000.0,
+    "AGENT_COMMISSION": 600.0
+  },
+  "costByCategory": {
+    "FUEL": 500.0,
+    "LABOR": 800.0,
+    "TAXES": 600.0
+  }
+}

@@ -108,7 +108,7 @@ public class ShipmentService {
                 .build();
     }
 
-    private Shipment findShipmentByReferenceNumber(String referenceNumber) {
+    Shipment findShipmentByReferenceNumber(String referenceNumber) {
         return shipmentRepository.findByReferenceNumber(referenceNumber)
                 .orElseThrow(() -> new ReferenceNumberNotFoundException(String.format("Shipment not found: %s.", referenceNumber)));
     }
