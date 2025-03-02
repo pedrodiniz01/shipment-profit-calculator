@@ -45,13 +45,13 @@ public class ShipmentService {
 
     public ShipmentSummaryResponse getShipmentByReferenceNumber(String referenceNumber) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
-        return buildShipmentSummary(shipment);
+        return mapper.toShipmentSummaryResponse(shipment);
     }
 
     public List<ShipmentSummaryResponse> getAllShipments() {
         return shipmentRepository.findAll()
                 .stream()
-                .map(this::buildShipmentSummary)
+                .map(mapper::toShipmentSummaryResponse)
                 .toList();
     }
 
@@ -93,17 +93,6 @@ public class ShipmentService {
                 .incomeByCategory(incomeByCategory)
                 .costByCategory(costByCategory)
                 .build();
-    }
-
-    private ShipmentSummaryResponse buildShipmentSummary(Shipment shipment) {
-        double totalIncome = IncomeUtils.calculateTotalIncome(shipment);
-        double totalCost = CostUtils.calculateTotalCost(shipment);
-
-        ShipmentSummaryResponse response = mapper.toShipmentSummaryResponse(shipment);
-        response.setTotalIncome(totalIncome);
-        response.setTotalCost(totalCost);
-
-        return response;
     }
 
     Shipment findShipmentByReferenceNumber(String referenceNumber) {
