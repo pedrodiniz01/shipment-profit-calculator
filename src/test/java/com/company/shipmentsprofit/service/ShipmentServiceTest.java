@@ -48,7 +48,7 @@ class ShipmentServiceTest {
             Mockito.when(repository.findByReferenceNumber(Mockito.anyString())).thenReturn(Optional.of(shipment));
 
             // Act
-            ShipmentFinancialSummaryResponse actualResponse = service.getShipmentFinancialSummary(Mockito.anyString());
+            ShipmentFinancialSummaryResponse actualResponse = service.getFinancialSummaryByCategory(Mockito.anyString());
 
             // Assert
             Assertions.assertEquals(expectedResponse.getReferenceNumber(), actualResponse.getReferenceNumber());

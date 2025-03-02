@@ -1,6 +1,6 @@
-INSERT INTO shipments (reference_number, shipment_date) VALUES
-  ('SHIP-1001', '2025-01-15'),
-  ('SHIP-2002', '2025-02-01');
+INSERT INTO shipments (reference_number, shipment_date, net_amount, is_profit) VALUES
+  ('SHIP-1001', '2025-01-15', 350.00, true),
+  ('SHIP-2002', '2025-02-01', -500.00, false);
 
 INSERT INTO incomes (description, amount, shipment_id) VALUES
   ('CUSTOMER_PAYMENT', 500.00, 1),

@@ -30,4 +30,8 @@ public class Shipment {
 
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cost> costs = new ArrayList<>();
+
+    private Double netAmount;
+
+    private Boolean isProfit;
 }

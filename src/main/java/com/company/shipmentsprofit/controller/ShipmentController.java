@@ -24,7 +24,7 @@ public class ShipmentController {
 
     private final ShipmentService shipmentService;
 
-    @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/create")
     public ResponseEntity<Shipment> createShipment(@RequestBody CreateShipmentRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(shipmentService.createShipment(request.getReferenceNumber(), request.getShipmentDate()));
     }
@@ -35,8 +35,8 @@ public class ShipmentController {
     }
 
     @GetMapping("/{referenceNumber}/financial-summary")
-    public ResponseEntity<ShipmentFinancialSummaryResponse> getShipmentFinancialSummary(@PathVariable String referenceNumber) {
-        return ResponseEntity.ok(shipmentService.getShipmentFinancialSummary(referenceNumber));
+    public ResponseEntity<ShipmentFinancialSummaryResponse> getFinancialSummaryByCategory(@PathVariable String referenceNumber) {
+        return ResponseEntity.ok(shipmentService.getFinancialSummaryByCategory(referenceNumber));
     }
 
     @GetMapping

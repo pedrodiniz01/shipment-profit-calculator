@@ -59,7 +59,9 @@ public class ShipmentService {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Income income = mapper.toIncome(request);
+
         IncomeUtils.addIncome(shipment, income);
+        updateNetAmount(shipment);
 
         shipmentRepository.save(shipment);
 
@@ -70,14 +72,16 @@ public class ShipmentService {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Cost cost = mapper.toCost(request);
+
         CostUtils.addCost(shipment, cost);
+        updateNetAmount(shipment);
 
         shipmentRepository.save(shipment);
 
         return cost;
     }
 
-    public ShipmentFinancialSummaryResponse getShipmentFinancialSummary(String referenceNumber) {
+    public ShipmentFinancialSummaryResponse getFinancialSummaryByCategory(String referenceNumber) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Map<IncomeType, Double> incomeByCategory = IncomeUtils.calculateIncomesByCategory(shipment);
@@ -95,21 +99,26 @@ public class ShipmentService {
         double totalIncome = IncomeUtils.calculateTotalIncome(shipment);
         double totalCost = CostUtils.calculateTotalCost(shipment);
 
-        double netAmount = totalIncome - totalCost;
-        boolean isProfit = netAmount > 0;
+        ShipmentSummaryResponse response = mapper.toShipmentSummaryResponse(shipment);
+        response.setTotalIncome(totalIncome);
+        response.setTotalCost(totalCost);
 
-        return ShipmentSummaryResponse.builder()
-                .referenceNumber(shipment.getReferenceNumber())
-                .shipmentDate(shipment.getShipmentDate())
-                .totalIncome(totalIncome)
-                .totalCost(totalCost)
-                .netAmount(netAmount)
-                .isProfit(isProfit)
-                .build();
+        return response;
     }
 
     Shipment findShipmentByReferenceNumber(String referenceNumber) {
         return shipmentRepository.findByReferenceNumber(referenceNumber)
                 .orElseThrow(() -> new ReferenceNumberNotFoundException(String.format("Shipment not found: %s.", referenceNumber)));
+    }
+
+    private void updateNetAmount(Shipment shipment) {
+        double totalIncome = IncomeUtils.calculateTotalIncome(shipment);
+        double totalCost = CostUtils.calculateTotalCost(shipment);
+
+        double netAmount = totalIncome - totalCost;
+        boolean isProfit = netAmount > 0;
+
+        shipment.setNetAmount(netAmount);
+        shipment.setIsProfit(isProfit);
     }
 }
