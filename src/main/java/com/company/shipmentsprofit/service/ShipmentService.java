@@ -1,15 +1,17 @@
 package com.company.shipmentsprofit.service;
 
-import com.company.shipmentsprofit.dto.response.ProfitCalculationResponse;
+import com.company.shipmentsprofit.dto.request.AddCostRequest;
+import com.company.shipmentsprofit.dto.request.AddIncomeRequest;
+import com.company.shipmentsprofit.dto.response.ShipmentSummaryResponse;
 import com.company.shipmentsprofit.entity.Cost;
 import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
-import com.company.shipmentsprofit.enums.CostType;
-import com.company.shipmentsprofit.enums.IncomeType;
 import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
 import com.company.shipmentsprofit.exception.ReferenceNumberNotFoundException;
+import com.company.shipmentsprofit.mapper.Mapper;
 import com.company.shipmentsprofit.repository.ShipmentRepository;
-import com.company.shipmentsprofit.utils.TransactionUtils;
+import com.company.shipmentsprofit.utils.CostUtils;
+import com.company.shipmentsprofit.utils.IncomeUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ import java.util.List;
 public class ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
+    private Mapper mapper;
 
     public Shipment createShipment(String referenceNumber, LocalDate shipmentDate) {
 
@@ -36,64 +39,55 @@ public class ShipmentService {
         return shipmentRepository.save(shipment);
     }
 
-    public Shipment getShipmentByReferenceNumber(String referenceNumber) {
-        return findShipmentByReferenceNumber(referenceNumber);
+    public ShipmentSummaryResponse getShipmentByReferenceNumber(String referenceNumber) {
+        Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
+        return buildShipmentSummary(shipment);
     }
 
-    public List<Shipment> getAllShipments() {
-        return shipmentRepository.findAll();
+    public List<ShipmentSummaryResponse> getAllShipments() {
+        return shipmentRepository.findAll()
+                .stream()
+                .map(this::buildShipmentSummary)
+                .toList();
     }
 
-    public Income addIncomeToShipment(String referenceNumber, IncomeType type, Double amount) {
+    public Income addIncomeToShipment(String referenceNumber, AddIncomeRequest request) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
-        Income income = Income.builder()
-                .description(type.name())
-                .amount(amount)
-                .build();
+       Income income = mapper.toIncome(request);
 
-        TransactionUtils.addIncome(shipment, income);
+        IncomeUtils.addIncome(shipment, income);
         shipmentRepository.save(shipment);
 
         return income;
     }
 
-    public Cost addCostToShipment(String referenceNumber, CostType type, Double amount) {
+    public Cost addCostToShipment(String referenceNumber, AddCostRequest request) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
-        Cost cost = Cost.builder()
-                .description(type.name())
-                .amount(amount)
-                .build();
+        Cost cost = mapper.toCost(request);
 
-        TransactionUtils.addCost(shipment, cost);
+        CostUtils.addCost(shipment, cost);
         shipmentRepository.save(shipment);
 
         return cost;
     }
 
-    public ProfitCalculationResponse calculateProfit(String referenceNumber) {
-        Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
+    private ShipmentSummaryResponse buildShipmentSummary(Shipment shipment) {
+        double totalIncome = IncomeUtils.calculateTotalIncome(shipment);
+        double totalCost = CostUtils.calculateTotalCost(shipment);
 
-        double totalIncome = shipment.getIncomes()
-                .stream()
-                .mapToDouble(income -> income.getAmount() != null ? income.getAmount() : 0.0)
-                .sum();
+        double netAmount = totalIncome - totalCost;
+        boolean isProfit = netAmount > 0;
 
-        double totalCost = shipment.getCosts()
-                .stream()
-                .mapToDouble(cost -> cost.getAmount() != null ? cost.getAmount() : 0.0)
-                .sum();
-
-        double profitValue = totalIncome - totalCost;
-
-        ProfitCalculationResponse dto = ProfitCalculationResponse.builder()
-                .referenceNumber(referenceNumber)
+        return ShipmentSummaryResponse.builder()
+                .referenceNumber(shipment.getReferenceNumber())
+                .shipmentDate(shipment.getShipmentDate())
                 .totalIncome(totalIncome)
                 .totalCost(totalCost)
-                .profit(profitValue).build();
-
-        return dto;
+                .netAmount(netAmount)
+                .isProfit(isProfit)
+                .build();
     }
 
     private Shipment findShipmentByReferenceNumber(String referenceNumber) {

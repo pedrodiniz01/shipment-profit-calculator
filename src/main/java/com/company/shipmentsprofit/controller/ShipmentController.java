@@ -3,7 +3,7 @@ package com.company.shipmentsprofit.controller;
 import com.company.shipmentsprofit.dto.request.AddCostRequest;
 import com.company.shipmentsprofit.dto.request.AddIncomeRequest;
 import com.company.shipmentsprofit.dto.request.CreateShipmentRequest;
-import com.company.shipmentsprofit.dto.response.ProfitCalculationResponse;
+import com.company.shipmentsprofit.dto.response.ShipmentSummaryResponse;
 import com.company.shipmentsprofit.entity.Cost;
 import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
@@ -29,27 +29,22 @@ public class ShipmentController {
     }
 
     @GetMapping("/{referenceNumber}")
-    public ResponseEntity<Shipment> getShipmentByReferenceNumber(@PathVariable String referenceNumber) {
+    public ResponseEntity<ShipmentSummaryResponse> getShipmentByReferenceNumber(@PathVariable String referenceNumber) {
         return ResponseEntity.ok(shipmentService.getShipmentByReferenceNumber(referenceNumber));
     }
 
     @GetMapping
-    public ResponseEntity<List<Shipment>> getAllShipments() {
+    public ResponseEntity<List<ShipmentSummaryResponse>> getAllShipments() {
         return ResponseEntity.ok(shipmentService.getAllShipments());
     }
 
     @PostMapping("/{referenceNumber}/income")
     public ResponseEntity<Income> addIncome(@PathVariable String referenceNumber, @RequestBody AddIncomeRequest request) {
-        return ResponseEntity.ok(shipmentService.addIncomeToShipment(referenceNumber, request.getIncomeType(), request.getAmount()));
+        return ResponseEntity.ok(shipmentService.addIncomeToShipment(referenceNumber, request));
     }
 
     @PostMapping("/{referenceNumber}/costs")
     public ResponseEntity<Cost> addCost(@PathVariable String referenceNumber, @RequestBody AddCostRequest request) {
-        return ResponseEntity.ok(shipmentService.addCostToShipment(referenceNumber, request.getCostType(), request.getAmount()));
-    }
-
-    @GetMapping("/{referenceNumber}/profit")
-    public ResponseEntity<ProfitCalculationResponse> calculateProfit(@PathVariable String referenceNumber) {
-        return ResponseEntity.ok(shipmentService.calculateProfit(referenceNumber));
+        return ResponseEntity.ok(shipmentService.addCostToShipment(referenceNumber, request));
     }
 }

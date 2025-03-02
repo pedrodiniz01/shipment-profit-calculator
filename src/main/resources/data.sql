@@ -11,4 +11,4 @@ INSERT INTO costs (description, amount, shipment_id) VALUES
   ('FUEL', 200.00, 1),
   ('HANDLING', 50.00, 1),
   ('FUEL', 300.00, 2),
-  ('TAXES', 100.00, 2);
+  ('TAXES', 900.00, 2);
