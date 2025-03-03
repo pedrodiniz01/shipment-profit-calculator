@@ -16,6 +16,7 @@ import com.company.shipmentsprofit.repository.ShipmentRepository;
 import com.company.shipmentsprofit.utils.CostUtils;
 import com.company.shipmentsprofit.utils.IncomeUtils;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,6 +31,10 @@ public class ShipmentService {
     private Mapper mapper;
 
     public Shipment createShipment(String referenceNumber, LocalDate shipmentDate) {
+
+        if (Strings.isBlank(referenceNumber)) {
+            throw new InvalidReferenceNumberException("Invalid reference number.");
+        }
 
         if (shipmentRepository.existsByReferenceNumber(referenceNumber)) {
             throw new InvalidReferenceNumberException("Shipment with reference number " + referenceNumber + " already exists.");
