@@ -2,7 +2,7 @@ package com.company.shipmentsprofit.utils;
 
 import com.company.shipmentsprofit.entity.Shipment;
 import com.company.shipmentsprofit.exception.InvalidInputException;
-import com.company.shipmentsprofit.exception.TransactionException;
+import com.company.shipmentsprofit.exception.TransactionAmountException;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.util.ObjectUtils;
 
@@ -25,7 +25,7 @@ public class ValidationUtils {
         Objects.requireNonNull(transaction, "Transaction can't be null");
 
         if (amount == null || amount <= 0) {
-            throw new TransactionException("Transaction value must be greater than zero.");
+            throw new TransactionAmountException("Transaction value must be greater than zero.");
         }
     }
 

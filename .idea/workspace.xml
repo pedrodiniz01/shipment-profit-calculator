@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="create new package exception">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/InvalidInputException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/NetAmountUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/constants/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/TransactionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/TransactionAmountException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/handler/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/service/ShipmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/service/ShipmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/CostUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/CostUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/IncomeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/IncomeUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/TransactionUtils.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/company/shipmentsprofit/utils/CostUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/company/shipmentsprofit/utils/CostUtilsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
