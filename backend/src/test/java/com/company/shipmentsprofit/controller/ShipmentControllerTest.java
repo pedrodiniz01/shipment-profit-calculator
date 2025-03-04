@@ -2,7 +2,7 @@ package com.company.shipmentsprofit.controller;
 
 import com.company.shipmentsprofit.dto.request.CreateShipmentRequest;
 import com.company.shipmentsprofit.entity.Shipment;
-import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
+import com.company.shipmentsprofit.exception.DuplicatedReferenceNumberException;
 import com.company.shipmentsprofit.service.ShipmentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -54,11 +54,11 @@ class ShipmentControllerTest {
 
             // When
             Mockito.when(shipmentService.createShipment("SHIP-1001", LocalDate.of(2025, 3, 2)))
-                    .thenThrow(new InvalidReferenceNumberException("Shipment with reference number SHIP-1001 already exists."));
+                    .thenThrow(new DuplicatedReferenceNumberException("Shipment with reference number SHIP-1001 already exists."));
 
             // Then
-            InvalidReferenceNumberException thrownException = Assertions.assertThrows(
-                    InvalidReferenceNumberException.class,
+            DuplicatedReferenceNumberException thrownException = Assertions.assertThrows(
+                    DuplicatedReferenceNumberException.class,
                     () -> shipmentController.createShipment(request)
             );
 

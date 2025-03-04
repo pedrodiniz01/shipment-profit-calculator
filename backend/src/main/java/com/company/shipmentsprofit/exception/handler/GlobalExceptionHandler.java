@@ -3,7 +3,7 @@ package com.company.shipmentsprofit.exception.handler;
 import com.company.shipmentsprofit.constants.Constants;
 import com.company.shipmentsprofit.dto.error.ErrorResponse;
 import com.company.shipmentsprofit.exception.InvalidInputException;
-import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
+import com.company.shipmentsprofit.exception.DuplicatedReferenceNumberException;
 import com.company.shipmentsprofit.exception.ReferenceNumberNotFoundException;
 import com.company.shipmentsprofit.exception.TransactionAmountException;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(new ErrorResponse(Constants.Exceptions.INVALID_INPUT_EXCEPTION, ex.getMessage()));
     }
 
-    @ExceptionHandler(InvalidReferenceNumberException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidReferenceNumberException(InvalidReferenceNumberException ex) {
-        return ResponseEntity.badRequest().body(new ErrorResponse(Constants.Exceptions.INVALID_REFERENCE_NUMBER_EXCEPTION, ex.getMessage()));
+    @ExceptionHandler(DuplicatedReferenceNumberException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicatedReferenceNumberException(DuplicatedReferenceNumberException ex) {
+        return ResponseEntity.badRequest().body(new ErrorResponse(Constants.Exceptions.DUPLICATED_REFERENCE_NUMBER_EXCEPTION, ex.getMessage()));
     }
 
     @ExceptionHandler(ReferenceNumberNotFoundException.class)

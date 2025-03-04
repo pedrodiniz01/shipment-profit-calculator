@@ -9,7 +9,7 @@ import com.company.shipmentsprofit.entity.Income;
 import com.company.shipmentsprofit.entity.Shipment;
 import com.company.shipmentsprofit.enums.CostType;
 import com.company.shipmentsprofit.enums.IncomeType;
-import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
+import com.company.shipmentsprofit.exception.DuplicatedReferenceNumberException;
 import com.company.shipmentsprofit.exception.ReferenceNumberNotFoundException;
 import com.company.shipmentsprofit.mapper.Mapper;
 import com.company.shipmentsprofit.repository.ShipmentRepository;
@@ -38,7 +38,7 @@ public class ShipmentService {
         ValidationUtils.validateCreateShipment(referenceNumber, shipmentDate);
 
         if (shipmentRepository.existsByReferenceNumber(referenceNumber)) {
-            throw new InvalidReferenceNumberException("Shipment with reference number " + referenceNumber + " already exists.");
+            throw new DuplicatedReferenceNumberException("Shipment with reference number " + referenceNumber + " already exists.");
         }
 
         Shipment shipment = Shipment.builder()
