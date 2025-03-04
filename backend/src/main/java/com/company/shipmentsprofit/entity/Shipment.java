@@ -14,7 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "shipments")
+@Table(name = "shipments", indexes = {
+        @Index(name = "idx_reference_number", columnList = "referenceNumber")
+})
 public class Shipment {
 
     @Id

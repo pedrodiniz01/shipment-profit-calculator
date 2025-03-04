@@ -18,6 +18,7 @@ import com.company.shipmentsprofit.utils.IncomeUtils;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,6 +31,7 @@ public class ShipmentService {
     private final ShipmentRepository shipmentRepository;
     private Mapper mapper;
 
+    @Transactional
     public Shipment createShipment(String referenceNumber, LocalDate shipmentDate) {
 
         if (Strings.isBlank(referenceNumber)) {
@@ -60,6 +62,7 @@ public class ShipmentService {
                 .toList();
     }
 
+    @Transactional
     public Income addIncomeToShipment(String referenceNumber, AddIncomeRequest request) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
@@ -73,6 +76,7 @@ public class ShipmentService {
         return income;
     }
 
+    @Transactional
     public Cost addCostToShipment(String referenceNumber, AddCostRequest request) {
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
