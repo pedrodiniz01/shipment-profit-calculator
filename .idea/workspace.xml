@@ -4,11 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="create new package exception" />
+    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="create new package exception">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/search-shipment/search-shipment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/search-shipment/search-shipment.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/search-shipment/search-shipment.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/search-shipment/search-shipment.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/search-shipment/search-shipment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/search-shipment/search-shipment.component.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

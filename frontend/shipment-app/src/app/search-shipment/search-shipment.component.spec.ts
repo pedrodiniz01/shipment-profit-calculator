@@ -9,11 +9,11 @@ import { HttpClient } from '@angular/common/http';
 export class SearchShipmentComponent {
   referenceNumber: string = '';
   shipmentSummary: any;
-  shipmentFinancialSummary: any; // holds the financial summary if loaded
+  shipmentFinancialSummary: any;
   errorMessage: string = '';
 
-  // Income form model
-  newIncome = {
+  // Define os modelos com tipagem para amount
+  newIncome: { type: string; amount: number | null } = {
     type: 'CUSTOMER_PAYMENT',
     amount: null
   };
@@ -21,8 +21,7 @@ export class SearchShipmentComponent {
   incomeSuccessMessage: string = '';
   incomeErrorMessage: string = '';
 
-  // Cost form model
-  newCost = {
+  newCost: { type: string; amount: number | null } = {
     type: 'FUEL',
     amount: null
   };
@@ -33,7 +32,6 @@ export class SearchShipmentComponent {
   constructor(private http: HttpClient) {}
 
   onSearch() {
-    // Clear previous messages and details
     this.errorMessage = '';
     this.shipmentSummary = null;
     this.shipmentFinancialSummary = null;
@@ -54,7 +52,6 @@ export class SearchShipmentComponent {
   }
 
   onMoreDetails() {
-    // Toggle financial summary view: if already loaded, clear it, otherwise fetch data
     if (this.shipmentFinancialSummary) {
       this.shipmentFinancialSummary = null;
     } else {
@@ -63,7 +60,6 @@ export class SearchShipmentComponent {
   }
 
   onAddIncome() {
-    // Clear previous messages
     this.incomeSuccessMessage = '';
     this.incomeErrorMessage = '';
 
@@ -81,7 +77,6 @@ export class SearchShipmentComponent {
   }
 
   onAddCost() {
-    // Clear previous messages
     this.costSuccessMessage = '';
     this.costErrorMessage = '';
 
@@ -98,7 +93,6 @@ export class SearchShipmentComponent {
     });
   }
 
-  // Helper method to refresh the shipment summary
   refreshShipmentSummary() {
     this.http.get<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}`).subscribe({
       next: refreshedData => {
@@ -110,7 +104,6 @@ export class SearchShipmentComponent {
     });
   }
 
-  // Helper method to refresh the financial summary
   refreshFinancialSummary() {
     this.http.get<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}/financial-summary`).subscribe({
       next: data => {
@@ -122,7 +115,6 @@ export class SearchShipmentComponent {
     });
   }
 
-  // Helper methods to iterate over keys of income and cost maps
   getIncomeKeys(): string[] {
     return this.shipmentFinancialSummary && this.shipmentFinancialSummary.incomeByCategory
       ? Object.keys(this.shipmentFinancialSummary.incomeByCategory)

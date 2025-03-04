@@ -13,6 +13,7 @@ export class CreateShipmentComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
+   // Injected via constructor, easy json handling, provides all methods
   constructor(private http: HttpClient) {}
 
   // method that validates both fields can't be empty

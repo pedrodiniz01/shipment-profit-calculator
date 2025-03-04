@@ -42,6 +42,7 @@ export class SearchShipmentComponent {
   costSuccessMessage: string = '';
   costErrorMessage: string = '';
 
+  // Injected via constructor, easy json handling, provides all methods
   constructor(private http: HttpClient) {}
 
   // Search for a single shipment by reference number

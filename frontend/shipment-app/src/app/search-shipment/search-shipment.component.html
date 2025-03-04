@@ -1,21 +1,18 @@
 <div class="search-container">
-    <!-- Return to Main Page Button -->
     <div class="return-button">
         <button routerLink="/">Home</button>
     </div>
 
     <h2>Search Shipment</h2>
     <form (ngSubmit)="onSearch()" #searchForm="ngForm">
-        <!-- Bind the search input to searchQuery instead of referenceNumber -->
+        <!-- Input can't be null -->
         <input type="text" name="referenceNumber" [(ngModel)]="searchQuery" placeholder="Enter Reference Number" required />
-        <!-- Container for the two buttons below the input field -->
         <div class="button-controls">
             <button type="submit" [disabled]="!searchForm.form.valid">Search</button>
             <button type="button" (click)="onGetAll()">Get All Shipments</button>
         </div>
     </form>
 
-    <!-- Display search result if shipmentSummary is available (search view) -->
     <div *ngIf="shipmentSummary" class="shipment-card">
         <h3>Shipment Summary</h3>
         <p><strong>Reference Number:</strong> {{ shipmentSummary.referenceNumber }}</p>
@@ -63,13 +60,9 @@
         </div>
     </div>
 
-    <!-- Error Message -->
     <div *ngIf="errorMessage" class="error">
         {{ errorMessage }}
     </div>
-
-    <!-- The following sections (action buttons, financial details, add income/cost forms)
-         are only relevant for the single shipment search view -->
     <div *ngIf="shipmentSummary">
         <div class="action-buttons">
             <button (click)="onMoreDetails()">
@@ -115,11 +108,12 @@
             </table>
         </div>
 
-        <!-- Add Income Form with improved layout -->
+
         <div *ngIf="showIncomeForm" class="income-form">
             <form (ngSubmit)="onAddIncome()" #incomeForm="ngForm" class="custom-form">
                 <div class="form-field">
                     <label for="type">Income Type:</label>
+                    <!-- Income type can't be null -->
                     <select id="type" name="type" [(ngModel)]="newIncome.type" required>
                         <option value="CUSTOMER_PAYMENT">Customer Payment</option>
                         <option value="AGENT_COMMISSION">Agent Commission</option>
@@ -130,6 +124,7 @@
                 </div>
                 <div class="form-field">
                     <label for="amount">Amount:</label>
+                    <!-- Income amount can't be null -->
                     <input type="number" id="amount" name="amount" [(ngModel)]="newIncome.amount" required />
                 </div>
                 <button type="submit" [disabled]="!incomeForm.form.valid">Add Income</button>
@@ -148,6 +143,7 @@
             <form (ngSubmit)="onAddCost()" #costForm="ngForm" class="custom-form">
                 <div class="form-field">
                     <label for="costType">Cost Type:</label>
+                    <!-- Cost type can't be null -->
                     <select id="costType" name="type" [(ngModel)]="newCost.type" required>
                         <option value="FUEL">Fuel</option>
                         <option value="LABOR">Labor</option>
@@ -160,6 +156,7 @@
                 </div>
                 <div class="form-field">
                     <label for="costAmount">Amount:</label>
+                    <!-- Cost amount can't be null -->
                     <input type="number" id="costAmount" name="amount" [(ngModel)]="newCost.amount" required />
                 </div>
                 <button type="submit" [disabled]="!costForm.form.valid">Add Cost</button>
