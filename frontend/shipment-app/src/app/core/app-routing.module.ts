@@ -1,9 +1,9 @@
 // src/app/app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { CreateShipmentComponent } from './create-shipment/create-shipment.component';
-import { SearchShipmentComponent } from './search-shipment/search-shipment.component';
+import { HomeComponent } from '../components/home/home.component';
+import { CreateShipmentComponent } from '../components/create-shipment/create-shipment.component';
+import { SearchShipmentComponent } from '../components/search-shipment/search-shipment.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

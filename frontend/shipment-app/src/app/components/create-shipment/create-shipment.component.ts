@@ -1,6 +1,8 @@
+// src/app/components/create-shipment/create-shipment.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { ShipmentService } from '../../shared/services/shipment.service';
+import { CreateShipment } from '../../shared/models/createshipment.model';
 
 @Component({
   selector: 'app-create-shipment',
@@ -13,10 +15,8 @@ export class CreateShipmentComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
-   // Injected via constructor, easy json handling, provides all methods
-  constructor(private http: HttpClient) {}
+  constructor(private shipmentService: ShipmentService) {}
 
-  // method that validates both fields can't be empty
   ngOnInit(): void {
     this.shipmentForm = new FormGroup({
       referenceNumber: new FormControl('', Validators.required),
@@ -26,8 +26,9 @@ export class CreateShipmentComponent implements OnInit {
 
   onSubmit(): void {
     if (this.shipmentForm.valid) {
-      const payload = this.shipmentForm.value;
-      this.http.post<any>('http://localhost:8080/api/shipments/create', payload).subscribe({
+      // Type the payload as Shipment
+      const payload: CreateShipment = this.shipmentForm.value;
+      this.shipmentService.createShipment(payload).subscribe({
         next: data => {
           this.successMessage = 'Shipment created successfully!';
           this.errorMessage = '';

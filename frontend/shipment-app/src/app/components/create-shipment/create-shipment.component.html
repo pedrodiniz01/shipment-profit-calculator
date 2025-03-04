@@ -1,6 +1,5 @@
-<!-- src/app/create-shipment/create-shipment.component.html -->
 <div class="container">
-    <!-- Botão para retornar à página principal -->
+
     <div class="return-button">
         <button routerLink="/">Home</button>
     </div>
@@ -17,10 +16,12 @@
         <div class="form-group">
             <label for="shipmentDate">Shipment Date:</label>
             <input type="date" id="shipmentDate" formControlName="shipmentDate" />
+
             <div *ngIf="shipmentForm.get('shipmentDate')?.invalid && shipmentForm.get('shipmentDate')?.touched">
                 Shipment date is required.
             </div>
         </div>
+        <!-- Controls if button is accessable or not -->
         <button type="submit" [disabled]="!shipmentForm.valid">Submit</button>
     </form>
 

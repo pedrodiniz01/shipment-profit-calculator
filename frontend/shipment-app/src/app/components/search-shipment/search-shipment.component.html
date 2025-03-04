@@ -23,13 +23,13 @@
             <strong>Net Amount:</strong>
             <span [ngClass]="{'positive': shipmentSummary.netAmount > 0, 'negative': shipmentSummary.netAmount < 0}">
                 {{ shipmentSummary.netAmount }}
-            </span>
+              </span>
         </p>
         <p>
             <strong>Profit:</strong>
-            <span [ngClass]="{'positive': shipmentSummary.isProfit, 'negative': !shipmentSummary.isProfit}">
-                {{ shipmentSummary.isProfit ? 'Yes' : 'No' }}
-            </span>
+            <span [ngClass]="{'positive': shipmentSummary?.netAmount > 0, 'negative': shipmentSummary?.netAmount < 0}">
+                {{ shipmentSummary?.netAmount }}
+              </span>
         </p>
     </div>
 

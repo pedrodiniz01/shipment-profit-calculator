@@ -6,9 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CreateShipmentComponent } from './create-shipment/create-shipment.component';
-import { SearchShipmentComponent } from './search-shipment/search-shipment.component';
-import { HomeComponent } from './home/home.component';
+import { CreateShipmentComponent } from '../components/create-shipment/create-shipment.component';
+import { SearchShipmentComponent } from '../components/search-shipment/search-shipment.component';
+import { HomeComponent } from '../components/home/home.component';
 
 @NgModule({
   declarations: [
