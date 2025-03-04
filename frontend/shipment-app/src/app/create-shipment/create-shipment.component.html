@@ -1,22 +1,29 @@
 <!-- src/app/create-shipment/create-shipment.component.html -->
 <div class="container">
-    <!-- Return to Main Page Button -->
+    <!-- Botão para retornar à página principal -->
     <div class="return-button">
         <button routerLink="/">Home</button>
     </div>
 
     <h2>Create Shipment</h2>
-    <form (ngSubmit)="onSubmit()" #shipmentForm="ngForm">
+    <form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="referenceNumber">Reference Number:</label>
-            <input type="text" id="referenceNumber" name="referenceNumber" [(ngModel)]="shipment.referenceNumber" required />
+            <input type="text" id="referenceNumber" formControlName="referenceNumber" />
+            <div *ngIf="shipmentForm.get('referenceNumber')?.invalid && shipmentForm.get('referenceNumber')?.touched">
+                Reference number is required.
+            </div>
         </div>
         <div class="form-group">
             <label for="shipmentDate">Shipment Date:</label>
-            <input type="date" id="shipmentDate" name="shipmentDate" [(ngModel)]="shipment.shipmentDate" required />
+            <input type="date" id="shipmentDate" formControlName="shipmentDate" />
+            <div *ngIf="shipmentForm.get('shipmentDate')?.invalid && shipmentForm.get('shipmentDate')?.touched">
+                Shipment date is required.
+            </div>
         </div>
-        <button type="submit" [disabled]="!shipmentForm.form.valid">Submit</button>
+        <button type="submit" [disabled]="!shipmentForm.valid">Submit</button>
     </form>
+
     <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
     <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 </div>

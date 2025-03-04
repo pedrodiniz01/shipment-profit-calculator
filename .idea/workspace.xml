@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/handler/GlobalExceptionHandler.java" afterDir="false" />
-    </list>
+    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="create new package exception" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,13 +21,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/diniz/Desktop/repos/shipment-profit-calculator-1&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/diniz/Desktop/repos/shipment-profit-calculator-1"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\diniz\Desktop\repos\shipment-profit-calculator\backend" />
@@ -80,13 +79,22 @@
       <option name="project" value="LOCAL" />
       <updated>1741032532994</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="create new package exception">
+      <option name="closed" value="true" />
+      <created>1741089223517</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741089223517</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="repackage backend" />
     <MESSAGE value="add input validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="add input validation" />
+    <MESSAGE value="create new package exception" />
+    <option name="LAST_COMMIT_MESSAGE" value="create new package exception" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
