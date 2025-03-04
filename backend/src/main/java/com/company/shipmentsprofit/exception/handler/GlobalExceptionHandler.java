@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ReferenceNumberNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleReferenceNumberNotFoundException(ReferenceNumberNotFoundException ex) {
-        return ResponseEntity.badRequest().body(new ErrorResponse(Constants.Exceptions.REFERENCE_NUMBER_NOT_FOUND, ex.getMessage()));
+        return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(TransactionAmountException.class)

@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="create new package exception">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/constants/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/TransactionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/TransactionAmountException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/handler/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +43,7 @@
       <recent name="C:\Users\diniz\Desktop\repos\shipment-profit-calculator\backend" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in shipment-profit-calculator">
+  <component name="RunManager" selected="Application.ShipmentProfitCalculatorApplication">
     <configuration name="ShipmentProfitCalculatorApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.company.shipmentsprofit.ShipmentProfitCalculatorApplication" />
       <module name="shipment-profit-calculator" />
@@ -70,8 +67,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in shipment-profit-calculator" />
         <item itemvalue="Application.ShipmentProfitCalculatorApplication" />
+        <item itemvalue="JUnit.All in shipment-profit-calculator" />
       </list>
     </recent_temporary>
   </component>

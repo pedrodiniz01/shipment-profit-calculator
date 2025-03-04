@@ -68,17 +68,23 @@ export class SearchShipmentComponent {
     this.shipmentFinancialSummary = null;
     this.showIncomeForm = false;
     this.showCostForm = false;
-
-    // Usa o serviço para buscar todos os shipments
+    
+    // Reset the search bar value and reference number
+    this.searchQuery = '';
+    this.referenceNumber = '';
+  
+    // Use the service to fetch all shipments
     this.shipmentService.getAllShipments().subscribe({
       next: data => {
         this.allShipments = data;
       },
       error: err => {
         this.errorMessage = 'Error retrieving shipments';
+        console.error('Error fetching shipments:', err);
       }
     });
   }
+  
 
   onSelectShipment(shipment: any) {
     this.shipmentSummary = shipment;
