@@ -1,49 +1,22 @@
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Create Shipment</h3>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()">
-                        <div class="form-group">
-                            <label for="referenceNumber">Reference Number</label>
-                            <input id="referenceNumber" type="text" formControlName="referenceNumber" class="form-control" placeholder="Enter reference number" />
-                            <small class="text-danger" *ngIf="shipmentForm.get('referenceNumber')?.invalid && shipmentForm.get('referenceNumber')?.touched">
-                  Reference Number is required.
-                </small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="shipmentDate">Shipment Date</label>
-                            <input id="shipmentDate" type="date" formControlName="shipmentDate" class="form-control" />
-                            <small class="text-danger" *ngIf="shipmentForm.get('shipmentDate')?.invalid && shipmentForm.get('shipmentDate')?.touched">
-                  Shipment Date is required.
-                </small>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block" [disabled]="shipmentForm.invalid">
-                Create Shipment
-              </button>
-                    </form>
-
-                    <div class="mt-4" *ngIf="createdShipment">
-                        <div class="alert alert-success">
-                            <h4 class="alert-heading">Shipment Created Successfully</h4>
-                            <p><strong>ID:</strong> {{ createdShipment.id }}</p>
-                            <p><strong>Reference Number:</strong> {{ createdShipment.referenceNumber }}</p>
-                            <p><strong>Shipment Date:</strong> {{ createdShipment.shipmentDate }}</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-4" *ngIf="errorMessage">
-                        <div class="alert alert-danger">
-                            {{ errorMessage }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- src/app/create-shipment/create-shipment.component.html -->
+<div class="container">
+    <!-- Return to Main Page Button -->
+    <div class="return-button">
+        <button routerLink="/">Home</button>
     </div>
+
+    <h2>Create Shipment</h2>
+    <form (ngSubmit)="onSubmit()" #shipmentForm="ngForm">
+        <div class="form-group">
+            <label for="referenceNumber">Reference Number:</label>
+            <input type="text" id="referenceNumber" name="referenceNumber" [(ngModel)]="shipment.referenceNumber" required />
+        </div>
+        <div class="form-group">
+            <label for="shipmentDate">Shipment Date:</label>
+            <input type="date" id="shipmentDate" name="shipmentDate" [(ngModel)]="shipment.shipmentDate" required />
+        </div>
+        <button type="submit" [disabled]="!shipmentForm.form.valid">Submit</button>
+    </form>
+    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 </div>

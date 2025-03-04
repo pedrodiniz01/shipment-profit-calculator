@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/shipments")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ShipmentController {
 
     private final ShipmentService shipmentService;

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="add input validation">
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/controller/ShipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/controller/ShipmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/models/shipment.model.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/shipment.service.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/shipment.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2tmTiaOkXecGJl4sajvbr74aJpY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/diniz/Desktop/repos/shipment-profit-calculator-1"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\diniz\Desktop\repos\shipment-profit-calculator\backend" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="ShipmentProfitCalculatorApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.shipmentsprofit.ShipmentProfitCalculatorApplication" />
+      <module name="shipment-profit-calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.company.shipmentsprofit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ShipmentProfitCalculatorApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="" />
+      <created>1740956380746</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740956380746</updated>
+    </task>
+    <task id="LOCAL-00001" summary="repackage backend">
+      <option name="closed" value="true" />
+      <created>1740958075648</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740958075648</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add input validation">
+      <option name="closed" value="true" />
+      <created>1741032532994</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1741032532994</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="repackage backend" />
+    <MESSAGE value="add input validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="add input validation" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/controller/ShipmentController.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/shipment_profit_calculator$ShipmentProfitCalculatorApplication.ic" NAME="ShipmentProfitCalculatorApplication Coverage Results" MODIFIED="1741044207037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.company.shipmentsprofit.*</FILTER>
+    </SUITE>
+  </component>
+</project>

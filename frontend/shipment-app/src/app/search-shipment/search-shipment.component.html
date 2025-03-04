@@ -1,0 +1,166 @@
+<div class="search-container">
+    <!-- Return to Main Page Button -->
+    <div class="return-button">
+        <button routerLink="/">Home</button>
+    </div>
+
+    <h2>Search Shipment</h2>
+    <form (ngSubmit)="onSearch()" #searchForm="ngForm">
+        <input type="text" name="referenceNumber" [(ngModel)]="referenceNumber" placeholder="Enter Reference Number" required />
+        <!-- Container for the two buttons below the input field -->
+        <div class="button-controls">
+            <button type="submit" [disabled]="!searchForm.form.valid">Search</button>
+            <button type="button" (click)="onGetAll()">Get All Shipments</button>
+        </div>
+    </form>
+
+    <!-- Display search result if shipmentSummary is available (search view) -->
+    <div *ngIf="shipmentSummary" class="shipment-card">
+        <h3>Shipment Summary</h3>
+        <p><strong>Reference Number:</strong> {{ shipmentSummary.referenceNumber }}</p>
+        <p><strong>Shipment Date:</strong> {{ shipmentSummary.shipmentDate | date:'mediumDate' }}</p>
+        <p><strong>Total Income:</strong> {{ shipmentSummary.totalIncome }}</p>
+        <p><strong>Total Cost:</strong> {{ shipmentSummary.totalCost }}</p>
+        <p>
+            <strong>Net Amount:</strong>
+            <span [ngClass]="{'positive': shipmentSummary.netAmount > 0, 'negative': shipmentSummary.netAmount < 0}">
+          {{ shipmentSummary.netAmount }}
+        </span>
+        </p>
+        <p><strong>Profit:</strong> {{ shipmentSummary.isProfit ? 'Yes' : 'No' }}</p>
+    </div>
+
+    <!-- Display all shipments if available (Get All view) -->
+    <div *ngIf="shipments && shipments.length > 0">
+        <h3>All Shipments</h3>
+        <div *ngFor="let shipment of shipments; let i = index">
+            <div class="shipment-card">
+                <p><strong>Reference Number:</strong> {{ shipment.referenceNumber }}</p>
+                <p><strong>Shipment Date:</strong> {{ shipment.shipmentDate | date:'mediumDate' }}</p>
+                <p><strong>Total Income:</strong> {{ shipment.totalIncome }}</p>
+                <p><strong>Total Cost:</strong> {{ shipment.totalCost }}</p>
+                <p>
+                    <strong>Net Amount:</strong>
+                    <span [ngClass]="{'positive': shipment.netAmount > 0, 'negative': shipment.netAmount < 0}">
+              {{ shipment.netAmount }}
+            </span>
+                </p>
+                <p><strong>Profit:</strong> {{ shipment.isProfit ? 'Yes' : 'No' }}</p>
+            </div>
+            <!-- Horizontal rule between shipments, except after the last one -->
+            <hr *ngIf="i < shipments.length - 1" />
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+    </div>
+
+    <!-- The following sections (action buttons, financial details, add income/cost forms)
+         are only relevant for the single shipment search view -->
+    <div *ngIf="shipmentSummary">
+        <div class="action-buttons">
+            <button (click)="onMoreDetails()">
+          {{ shipmentFinancialSummary ? 'Hide Financial Summary' : 'More Financial Details' }}
+        </button>
+            <button (click)="toggleIncomeForm()">
+          {{ showIncomeForm ? 'Hide Add Income' : 'Add Income' }}
+        </button>
+            <button (click)="toggleCostForm()">
+          {{ showCostForm ? 'Hide Add Cost' : 'Add Cost' }}
+        </button>
+        </div>
+
+        <!-- Display Financial Summary if available -->
+        <div *ngIf="shipmentFinancialSummary" class="details">
+            <h4>Financial Summary</h4>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Income by Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let incomeKey of getIncomeKeys()">
+                        <td>{{ incomeKey }}</td>
+                        <td>{{ shipmentFinancialSummary.incomeByCategory[incomeKey] | number:'1.2-2' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Cost by Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let costKey of getCostKeys()">
+                        <td>{{ costKey }}</td>
+                        <td>{{ shipmentFinancialSummary.costByCategory[costKey] | number:'1.2-2' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add Income Form with improved layout -->
+        <div *ngIf="showIncomeForm" class="income-form">
+            <h4>Add Income</h4>
+            <form (ngSubmit)="onAddIncome()" #incomeForm="ngForm" class="custom-form">
+                <div class="form-field">
+                    <label for="type">Income Type:</label>
+                    <select id="type" name="type" [(ngModel)]="newIncome.type" required>
+              <option value="CUSTOMER_PAYMENT">Customer Payment</option>
+              <option value="AGENT_COMMISSION">Agent Commission</option>
+              <option value="REFUND">Refund</option>
+              <option value="GOVERNMENT_SUBSIDY">Government Subsidy</option>
+              <option value="OTHER">Other</option>
+            </select>
+                </div>
+                <div class="form-field">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" [(ngModel)]="newIncome.amount" required />
+                </div>
+                <button type="submit" [disabled]="!incomeForm.form.valid">Add Income</button>
+            </form>
+            <div *ngIf="incomeSuccessMessage" class="success">
+                {{ incomeSuccessMessage }}
+            </div>
+            <div *ngIf="incomeErrorMessage" class="error">
+                {{ incomeErrorMessage }}
+            </div>
+        </div>
+
+        <!-- Add Cost Form with improved layout -->
+        <div *ngIf="showCostForm" class="cost-form">
+            <h4>Add Cost</h4>
+            <form (ngSubmit)="onAddCost()" #costForm="ngForm" class="custom-form">
+                <div class="form-field">
+                    <label for="costType">Cost Type:</label>
+                    <select id="costType" name="type" [(ngModel)]="newCost.type" required>
+              <option value="FUEL">Fuel</option>
+              <option value="LABOR">Labor</option>
+              <option value="TAXES">Taxes</option>
+              <option value="MAINTENANCE">Maintenance</option>
+              <option value="INSURANCE">Insurance</option>
+              <option value="HANDLING">Handling</option>
+              <option value="OTHER">Other</option>
+            </select>
+                </div>
+                <div class="form-field">
+                    <label for="costAmount">Amount:</label>
+                    <input type="number" id="costAmount" name="amount" [(ngModel)]="newCost.amount" required />
+                </div>
+                <button type="submit" [disabled]="!costForm.form.valid">Add Cost</button>
+            </form>
+            <div *ngIf="costSuccessMessage" class="success">
+                {{ costSuccessMessage }}
+            </div>
+            <div *ngIf="costErrorMessage" class="error">
+                {{ costErrorMessage }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,53 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ShipmentService } from '../shipment.service';
-import { Shipment } from '../models/shipment.model';
+// src/app/create-shipment/create-shipment.component.ts
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-shipment',
   templateUrl: './create-shipment.component.html',
+  styleUrls: ['./create-shipment.component.css'],
   standalone: false
 })
-export class CreateShipmentComponent implements OnInit {
-  shipmentForm: FormGroup;
-  createdShipment: Shipment | null = null;
-  errorMessage: string | null = null;
+export class CreateShipmentComponent {
+  shipment = {
+    referenceNumber: '',
+    shipmentDate: ''
+  };
 
-  constructor(
-    private fb: FormBuilder,
-    private shipmentService: ShipmentService
-  ) {
-    this.shipmentForm = this.fb.group({
-      referenceNumber: ['', Validators.required],
-      shipmentDate: ['', Validators.required]
-    });
-  }
+  successMessage: string = '';
+  errorMessage: string = '';
 
-  ngOnInit(): void {}
+  constructor(private http: HttpClient) {}
 
-  onSubmit(): void {
-    if (this.shipmentForm.invalid) {
-      return;
-    }
-    
-    const requestPayload = {
-      referenceNumber: this.shipmentForm.value.referenceNumber,
-      shipmentDate: this.shipmentForm.value.shipmentDate
+  onSubmit() {
+    const payload = {
+      referenceNumber: this.shipment.referenceNumber,
+      shipmentDate: this.shipment.shipmentDate
     };
-  
-    this.shipmentService.createShipment(requestPayload).subscribe({
-      next: (shipment: Shipment) => {
-        // Clear error message and set success shipment
-        this.errorMessage = null;
-        this.createdShipment = shipment;
-        console.log('Shipment created successfully', shipment);
+
+    this.http.post<any>('http://localhost:8080/api/shipments/create', payload).subscribe({
+      next: data => {
+        this.successMessage = 'Shipment created successfully! ID: ' + data.referenceNumber;
+        this.errorMessage = '';
       },
-      error: (err) => {
-        // Clear any previous success shipment and set error message
-        this.createdShipment = null;
-        this.errorMessage = 'Error creating shipment. Please try again.';
-        console.error('Error:', err);
+      error: error => {
+        this.errorMessage = 'Failed to create shipment. Please try again.';
+        this.successMessage = '';
+        console.error('Error creating shipment:', error);
       }
     });
-  }  
+  }
 }
