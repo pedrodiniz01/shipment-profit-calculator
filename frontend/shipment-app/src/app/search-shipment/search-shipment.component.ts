@@ -68,7 +68,7 @@ export class SearchShipmentComponent {
         this.shipmentSummary = data;
       },
       error: err => {
-        this.errorMessage = 'Shipment not found or error occurred';
+        this.errorMessage = 'Shipment not found.';
         console.error('Error fetching shipment:', err);
       }
     });

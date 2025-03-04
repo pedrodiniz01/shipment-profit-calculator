@@ -27,7 +27,7 @@ export class CreateShipmentComponent {
 
     this.http.post<any>('http://localhost:8080/api/shipments/create', payload).subscribe({
       next: data => {
-        this.successMessage = 'Shipment created successfully! ID: ' + data.referenceNumber;
+        this.successMessage = 'Shipment created successfully!'
         this.errorMessage = '';
       },
       error: error => {
