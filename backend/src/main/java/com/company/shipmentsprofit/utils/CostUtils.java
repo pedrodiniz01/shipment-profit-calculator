@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CostUtils {
-    public static void addCost(Shipment shipment, Cost cost) {
-        TransactionUtils.validateShipmentAndTransaction(shipment, cost, cost.getAmount());
+    public static void validateAndAddCost(Shipment shipment, Cost cost) {
+        ValidationUtils.validateShipmentAndTransaction(shipment, cost, cost.getAmount());
         shipment.getCosts().add(cost);
         cost.setShipment(shipment);
     }

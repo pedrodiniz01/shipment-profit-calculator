@@ -2,6 +2,7 @@ package com.company.shipmentsprofit.exception.handler;
 
 import com.company.shipmentsprofit.constants.Constants;
 import com.company.shipmentsprofit.dto.error.ErrorResponse;
+import com.company.shipmentsprofit.exception.InvalidInputException;
 import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
 import com.company.shipmentsprofit.exception.ReferenceNumberNotFoundException;
 import com.company.shipmentsprofit.exception.TransactionException;
@@ -12,9 +13,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(InvalidInputException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidInputException(InvalidInputException ex) {
+        return ResponseEntity.badRequest().body(new ErrorResponse(Constants.Exceptions.INVALID_INPUT_EXCEPTION, ex.getMessage()));
+    }
+
     @ExceptionHandler(InvalidReferenceNumberException.class)
     public ResponseEntity<ErrorResponse> handleInvalidReferenceNumberException(InvalidReferenceNumberException ex) {
-        return ResponseEntity.badRequest().body(new ErrorResponse(Constants.Exceptions.INVALID_REFERENCE_NUMBER, ex.getMessage()));
+        return ResponseEntity.badRequest().body(new ErrorResponse(Constants.Exceptions.INVALID_INPUT_EXCEPTION, ex.getMessage()));
     }
 
     @ExceptionHandler(ReferenceNumberNotFoundException.class)
