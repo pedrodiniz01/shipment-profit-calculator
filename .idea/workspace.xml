@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="add input validation">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/controller/ShipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/controller/ShipmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/create-shipment/create-shipment.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/models/shipment.model.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/shipment.service.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/shipment.service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/index.html" afterDir="false" />
+    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/handler/GlobalExceptionHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,13 +23,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/diniz/Desktop/repos/shipment-profit-calculator-1"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/diniz/Desktop/repos/shipment-profit-calculator-1&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\diniz\Desktop\repos\shipment-profit-calculator\backend" />

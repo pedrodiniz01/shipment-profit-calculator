@@ -1,7 +1,10 @@
-package com.company.shipmentsprofit.exception;
+package com.company.shipmentsprofit.exception.handler;
 
 import com.company.shipmentsprofit.constants.Constants;
 import com.company.shipmentsprofit.dto.error.ErrorResponse;
+import com.company.shipmentsprofit.exception.InvalidReferenceNumberException;
+import com.company.shipmentsprofit.exception.ReferenceNumberNotFoundException;
+import com.company.shipmentsprofit.exception.TransactionException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
