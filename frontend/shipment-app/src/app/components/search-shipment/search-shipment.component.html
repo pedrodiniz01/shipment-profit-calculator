@@ -26,10 +26,10 @@
               </span>
         </p>
         <p>
-            <strong>Profit:</strong>
-            <span [ngClass]="{'positive': shipmentSummary?.netAmount > 0, 'negative': shipmentSummary?.netAmount < 0}">
-                {{ shipmentSummary?.netAmount }}
-              </span>
+            <strong>Is Profit:</strong>
+            <span [ngClass]="{'positive': shipmentSummary.netAmount > 0, 'negative': shipmentSummary.netAmount <= 0}">
+              {{ shipmentSummary.netAmount > 0 ? 'Yes' : 'No' }}
+            </span>
         </p>
     </div>
 

@@ -93,6 +93,9 @@ export class SearchShipmentComponent {
     if (this.shipmentFinancialSummary) {
       this.shipmentFinancialSummary = null;
     } else {
+      // Close income and cost forms when opening financial summary
+      this.showIncomeForm = false;
+      this.showCostForm = false;
       this.refreshFinancialSummary();
     }
   }
@@ -100,31 +103,33 @@ export class SearchShipmentComponent {
   onAddIncome() {
     this.incomeSuccessMessage = '';
     this.incomeErrorMessage = '';
-    // Usa o serviço para adicionar income
+    // Use the service to add income
     this.shipmentService.addIncome(this.referenceNumber, this.newIncome).subscribe({
       next: data => {
-        this.incomeSuccessMessage = `Income added successfully! Amount: ${data.amount}`;
+        this.incomeSuccessMessage = `Income added successfully!`;
         this.refreshShipmentSummary();
-        this.refreshFinancialSummary();
+        // Removed refreshFinancialSummary() so the financial summary won't auto-open
       },
       error: err => {
         this.incomeErrorMessage = 'Failed to add income. Please try again.';
+        console.error('Error adding income:', err);
       }
     });
   }
-
+  
   onAddCost() {
     this.costSuccessMessage = '';
     this.costErrorMessage = '';
-    // Usa o serviço para adicionar cost
+    // Use the service to add cost
     this.shipmentService.addCost(this.referenceNumber, this.newCost).subscribe({
       next: data => {
-        this.costSuccessMessage = `Cost added successfully! Amount: ${data.amount}`;
+        this.costSuccessMessage = `Cost added successfully!`;
         this.refreshShipmentSummary();
-        this.refreshFinancialSummary();
+        // Removed refreshFinancialSummary() so the financial summary won't auto-open
       },
       error: err => {
         this.costErrorMessage = 'Failed to add cost. Please try again.';
+        console.error('Error adding cost:', err);
       }
     });
   }
@@ -154,24 +159,37 @@ export class SearchShipmentComponent {
   }
 
   toggleIncomeForm() {
+    // Reset income fields to default values each time the button is clicked
+    this.newIncome = { type: 'CUSTOMER_PAYMENT', amount: null };
+    this.incomeSuccessMessage = ''; // Clear previous success message
+  
     if (!this.showIncomeForm) {
+      // Open the income form and close the cost form and financial summary
       this.showIncomeForm = true;
       this.showCostForm = false;
       this.shipmentFinancialSummary = null;
     } else {
+      // Close the income form
       this.showIncomeForm = false;
     }
   }
-
+  
   toggleCostForm() {
+    // Reset cost fields to default values each time the button is clicked
+    this.newCost = { type: 'FUEL', amount: null };
+    this.costSuccessMessage = ''; // Clear previous success message
+  
     if (!this.showCostForm) {
+      // Open the cost form and close the income form and financial summary
       this.showCostForm = true;
       this.showIncomeForm = false;
       this.shipmentFinancialSummary = null;
     } else {
+      // Close the cost form
       this.showCostForm = false;
     }
   }
+  
 
   getIncomeKeys(): string[] {
     return this.shipmentFinancialSummary && this.shipmentFinancialSummary.incomeByCategory
