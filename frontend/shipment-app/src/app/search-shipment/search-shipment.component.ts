@@ -8,13 +8,17 @@ import { HttpClient } from '@angular/common/http';
   standalone: false
 })
 export class SearchShipmentComponent {
+  // For the search input field
+  searchQuery: string = '';
+  // Used for API calls
   referenceNumber: string = '';
+
   shipmentSummary: any;
   shipmentFinancialSummary: any;
   errorMessage: string = '';
 
-  // New property to store all shipments
-  shipments: any[] = [];
+  // For "Get All Shipments" view, using allShipments property
+  allShipments: any[] = [];
 
   // Flags for toggling form display (used only for search view)
   showIncomeForm: boolean = false;
@@ -40,7 +44,7 @@ export class SearchShipmentComponent {
 
   constructor(private http: HttpClient) {}
 
-  // Existing search method remains unchanged
+  // Search for a single shipment by reference number
   onSearch() {
     // Clear previous messages and details
     this.errorMessage = '';
@@ -50,11 +54,14 @@ export class SearchShipmentComponent {
     this.incomeErrorMessage = '';
     this.costSuccessMessage = '';
     this.costErrorMessage = '';
-    // Clear list of shipments (in case a previous "Get All" view is active)
-    this.shipments = [];
+    // Clear the "Get All" view if active
+    this.allShipments = [];
     // Hide forms
     this.showIncomeForm = false;
     this.showCostForm = false;
+
+    // Use searchQuery to set the referenceNumber for API calls.
+    this.referenceNumber = this.searchQuery;
 
     this.http.get<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}`).subscribe({
       next: data => {
@@ -67,7 +74,7 @@ export class SearchShipmentComponent {
     });
   }
 
-  // New method to retrieve all shipments
+  // Get all shipments and display them without extra buttons
   onGetAll() {
     // Clear previous details and messages
     this.errorMessage = '';
@@ -79,7 +86,7 @@ export class SearchShipmentComponent {
 
     this.http.get<any[]>(`http://localhost:8080/api/shipments`).subscribe({
       next: data => {
-        this.shipments = data;
+        this.allShipments = data;
       },
       error: err => {
         this.errorMessage = 'Error retrieving shipments';
@@ -88,28 +95,42 @@ export class SearchShipmentComponent {
     });
   }
 
+  // When clicking on a shipment card in the "All Shipments" view,
+  // load its detailed view without changing the search input.
+  onSelectShipment(shipment: any) {
+    this.shipmentSummary = shipment;
+    // Update referenceNumber for API calls, but leave searchQuery unchanged.
+    this.referenceNumber = shipment.referenceNumber;
+    this.allShipments = []; // Clear the list to focus on the selected shipment
+    // Reset any extra view flags if needed
+    this.showIncomeForm = false;
+    this.showCostForm = false;
+    this.shipmentFinancialSummary = null;
+  }
+
+  // Toggle financial details for a single shipment (search view)
   onMoreDetails() {
     if (this.shipmentFinancialSummary) {
       this.shipmentFinancialSummary = null;
     } else {
-      // Close the forms before showing details.
+      // Close the forms before showing details
       this.showIncomeForm = false;
       this.showCostForm = false;
       this.refreshFinancialSummary();
     }
   }
 
+  // Add income for a single shipment (search view)
   onAddIncome() {
     // Clear previous messages
     this.incomeSuccessMessage = '';
     this.incomeErrorMessage = '';
-  
+
     this.http.post<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}/income`, this.newIncome).subscribe({
       next: data => {
         this.incomeSuccessMessage = `Income added successfully! Amount: ${data.amount}`;
-        // Optionally refresh shipment summary (if needed)
+        // Optionally refresh shipment summary
         this.refreshShipmentSummary();
-        // Removed refreshFinancialSummary() call
       },
       error: err => {
         this.incomeErrorMessage = 'Failed to add income. Please try again.';
@@ -117,18 +138,18 @@ export class SearchShipmentComponent {
       }
     });
   }
-  
+
+  // Add cost for a single shipment (search view)
   onAddCost() {
     // Clear previous messages
     this.costSuccessMessage = '';
     this.costErrorMessage = '';
-  
+
     this.http.post<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}/costs`, this.newCost).subscribe({
       next: data => {
         this.costSuccessMessage = `Cost added successfully! Amount: ${data.amount}`;
-        // Optionally refresh shipment summary (if needed)
+        // Optionally refresh shipment summary
         this.refreshShipmentSummary();
-        // Removed refreshFinancialSummary() call
       },
       error: err => {
         this.costErrorMessage = 'Failed to add cost. Please try again.';
@@ -136,7 +157,6 @@ export class SearchShipmentComponent {
       }
     });
   }
-  
 
   // Helper method to refresh the shipment summary
   refreshShipmentSummary() {
@@ -162,11 +182,11 @@ export class SearchShipmentComponent {
     });
   }
 
-  // Toggle the display of the Income form
+  // Toggle the display of the Income form (search view)
   toggleIncomeForm() {
     if (!this.showIncomeForm) {
       this.showIncomeForm = true;
-      // Close the cost form and financial summary.
+      // Close the cost form and hide financial details
       this.showCostForm = false;
       this.shipmentFinancialSummary = null;
     } else {
@@ -174,11 +194,11 @@ export class SearchShipmentComponent {
     }
   }
 
-  // Toggle the display of the Cost form
+  // Toggle the display of the Cost form (search view)
   toggleCostForm() {
     if (!this.showCostForm) {
       this.showCostForm = true;
-      // Close the income form and financial summary.
+      // Close the income form and hide financial details
       this.showIncomeForm = false;
       this.shipmentFinancialSummary = null;
     } else {
@@ -186,13 +206,14 @@ export class SearchShipmentComponent {
     }
   }
 
-  // Helper methods to iterate over keys of income and cost maps
+  // Helper method to get income keys for iteration in the template
   getIncomeKeys(): string[] {
     return this.shipmentFinancialSummary && this.shipmentFinancialSummary.incomeByCategory
       ? Object.keys(this.shipmentFinancialSummary.incomeByCategory)
       : [];
   }
 
+  // Helper method to get cost keys for iteration in the template
   getCostKeys(): string[] {
     return this.shipmentFinancialSummary && this.shipmentFinancialSummary.costByCategory
       ? Object.keys(this.shipmentFinancialSummary.costByCategory)

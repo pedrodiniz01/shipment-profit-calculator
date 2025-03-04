@@ -83,6 +83,18 @@
 }
 
 
+/* Make shipment cards clickable */
+
+.clickable {
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.clickable:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 /* Toggle form sections (Add Income and Add Cost) */
 
 .income-form,
