@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "d4f50444-b664-4668-a0d9-bcd2c562f49a",
+		"name": "Shipment App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19113966"
+	},
+	"item": [
+		{
+			"name": "Get Shipment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/shipments/SHIP-1001",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shipments",
+						"SHIP-1001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Financial Summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/shipments/SHIP-1001",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shipments",
+						"SHIP-1001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/shipments",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shipments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Shipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"referenceNumber\": \"SHIP-1001\",\r\n    \"shipmentDate\": \"2025-03-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/shipments/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shipments",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Income",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Freight Charge\",\r\n  \"amount\": 150.75\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/shipments/:id/income",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shipments",
+						":id",
+						"income"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "SHIP-1001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Costs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Taxes\",\r\n  \"amount\": 150.75\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/shipments/:id/costs",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shipments",
+						":id",
+						"costs"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "SHIP-1001"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
