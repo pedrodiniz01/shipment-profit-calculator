@@ -1,5 +1,3 @@
-/* src/app/create-shipment/create-shipment.component.css */
-
 .container {
     width: 400px;
     margin: 50px auto;
@@ -12,7 +10,6 @@
 
 .return-button {
     margin-bottom: 20px;
-    /* Adds extra space between the return button and the heading */
 }
 
 h2 {

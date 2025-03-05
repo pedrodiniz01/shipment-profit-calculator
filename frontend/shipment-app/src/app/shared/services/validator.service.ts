@@ -3,7 +3,7 @@ import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@an
 
 
 @Directive({
-  selector: '[appPositiveAmount]',
+  selector: '[positiveAmount]', // to be used in html
   providers: [
     {
       provide: NG_VALIDATORS,
@@ -14,6 +14,7 @@ import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@an
 })
 export class PositiveAmountValidatorDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
+    // extracts control value 
     const value = control.value;
     // If empty, let the required validator handle it.
     if (value === null || value === undefined || value === '') {

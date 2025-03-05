@@ -1,129 +1,58 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SearchShipmentComponent } from './search-shipment.component';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
 
-@Component({
-  selector: 'app-search-shipment',
-  templateUrl: './search-shipment.component.html',
-  styleUrls: ['./search-shipment.component.css']
-})
-export class SearchShipmentComponent {
-  referenceNumber: string = '';
-  shipmentSummary: any;
-  shipmentFinancialSummary: any;
-  errorMessage: string = '';
+describe('SearchShipmentComponent', () => {
+  let component: SearchShipmentComponent;
+  let fixture: ComponentFixture<SearchShipmentComponent>;
+  let httpMock: HttpTestingController;
 
-  // Define os modelos com tipagem para amount
-  newIncome: { type: string; amount: number | null } = {
-    type: 'CUSTOMER_PAYMENT',
-    amount: null
-  };
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [SearchShipmentComponent],
+      imports: [FormsModule, HttpClientTestingModule]
+    }).compileComponents();
 
-  incomeSuccessMessage: string = '';
-  incomeErrorMessage: string = '';
+    fixture = TestBed.createComponent(SearchShipmentComponent);
+    component = fixture.componentInstance;
+    httpMock = TestBed.inject(HttpTestingController);
+    fixture.detectChanges();
+  });
 
-  newCost: { type: string; amount: number | null } = {
-    type: 'FUEL',
-    amount: null
-  };
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
 
-  costSuccessMessage: string = '';
-  costErrorMessage: string = '';
+  it('should fetch shipment summary on onSearch()', () => {
+    // Set search query and call onSearch()
+    component.searchQuery = 'ABC123';
+    component.onSearch();
 
-  constructor(private http: HttpClient) {}
+    // Expect a GET request to the correct URL
+    const req = httpMock.expectOne('http://localhost:8080/api/shipments/ABC123');
+    expect(req.request.method).toBe('GET');
 
-  onSearch() {
-    this.errorMessage = '';
-    this.shipmentSummary = null;
-    this.shipmentFinancialSummary = null;
-    this.incomeSuccessMessage = '';
-    this.incomeErrorMessage = '';
-    this.costSuccessMessage = '';
-    this.costErrorMessage = '';
+    // Simulate a successful response
+    const dummyShipment = { referenceNumber: 'ABC123', shipmentDate: '2025-03-04' };
+    req.flush(dummyShipment);
 
-    this.http.get<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}`).subscribe({
-      next: data => {
-        this.shipmentSummary = data;
-      },
-      error: err => {
-        this.errorMessage = 'Shipment not found.';
-        console.error('Error fetching shipment:', err);
-      }
-    });
-  }
+    // Verify the component is updated
+    expect(component.referenceNumber).toBe('ABC123');
+    expect(component.shipmentSummary).toEqual(dummyShipment);
+    expect(component.errorMessage).toBe('');
+  });
 
-  onMoreDetails() {
-    if (this.shipmentFinancialSummary) {
-      this.shipmentFinancialSummary = null;
-    } else {
-      this.refreshFinancialSummary();
-    }
-  }
+  it('should set errorMessage when onSearch() fails', () => {
+    component.searchQuery = 'XYZ';
+    component.onSearch();
 
-  onAddIncome() {
-    this.incomeSuccessMessage = '';
-    this.incomeErrorMessage = '';
+    const req = httpMock.expectOne('http://localhost:8080/api/shipments/XYZ');
+    expect(req.request.method).toBe('GET');
 
-    this.http.post<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}/income`, this.newIncome).subscribe({
-      next: data => {
-        this.incomeSuccessMessage = `Income added successfully! Amount: ${data.amount}`;
-        this.refreshShipmentSummary();
-        this.refreshFinancialSummary();
-      },
-      error: err => {
-        this.incomeErrorMessage = 'Failed to add income. Please try again.';
-        console.error('Error adding income:', err);
-      }
-    });
-  }
+    // Simulate an error response
+    req.flush('Not found', { status: 404, statusText: 'Not Found' });
 
-  onAddCost() {
-    this.costSuccessMessage = '';
-    this.costErrorMessage = '';
-
-    this.http.post<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}/costs`, this.newCost).subscribe({
-      next: data => {
-        this.costSuccessMessage = `Cost added successfully! Amount: ${data.amount}`;
-        this.refreshShipmentSummary();
-        this.refreshFinancialSummary();
-      },
-      error: err => {
-        this.costErrorMessage = 'Failed to add cost. Please try again.';
-        console.error('Error adding cost:', err);
-      }
-    });
-  }
-
-  refreshShipmentSummary() {
-    this.http.get<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}`).subscribe({
-      next: refreshedData => {
-        this.shipmentSummary = refreshedData;
-      },
-      error: refreshError => {
-        console.error('Error refreshing shipment summary:', refreshError);
-      }
-    });
-  }
-
-  refreshFinancialSummary() {
-    this.http.get<any>(`http://localhost:8080/api/shipments/${this.referenceNumber}/financial-summary`).subscribe({
-      next: data => {
-        this.shipmentFinancialSummary = data;
-      },
-      error: err => {
-        console.error('Error refreshing financial summary:', err);
-      }
-    });
-  }
-
-  getIncomeKeys(): string[] {
-    return this.shipmentFinancialSummary && this.shipmentFinancialSummary.incomeByCategory
-      ? Object.keys(this.shipmentFinancialSummary.incomeByCategory)
-      : [];
-  }
-
-  getCostKeys(): string[] {
-    return this.shipmentFinancialSummary && this.shipmentFinancialSummary.costByCategory
-      ? Object.keys(this.shipmentFinancialSummary.costByCategory)
-      : [];
-  }
-}
+    expect(component.errorMessage).toBe('Shipment not found.');
+  });
+});

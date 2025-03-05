@@ -9,9 +9,9 @@ import { CreateShipmentComponent } from '../components/create-shipment/create-sh
 import { SearchShipmentComponent } from '../components/search-shipment/search-shipment.component';
 import { HomeComponent } from '../components/home/home.component';
 
-// Import the standalone directive (omit the .ts extension)
 import { PositiveAmountValidatorDirective } from '../shared/services/validator.service';
 
+// Main module of the app, defines how application should be initiated - appComponent
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +25,7 @@ import { PositiveAmountValidatorDirective } from '../shared/services/validator.s
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    PositiveAmountValidatorDirective // import the standalone directive here
+    PositiveAmountValidatorDirective 
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,6 +17,7 @@ export class SearchShipmentComponent {
   showIncomeForm: boolean = false;
   showCostForm: boolean = false;
 
+  // object created to handle data
   newIncome = {
     type: 'CUSTOMER_PAYMENT',
     amount: null
@@ -33,8 +34,10 @@ export class SearchShipmentComponent {
   costSuccessMessage: string = '';
   costErrorMessage: string = '';
 
+  // inject service in constructor
   constructor(private shipmentService: ShipmentService) {}
 
+  // on search clean alot of variables, better for UX
   onSearch() {
     this.errorMessage = '';
     this.shipmentSummary = null;
@@ -47,6 +50,7 @@ export class SearchShipmentComponent {
     this.showIncomeForm = false;
     this.showCostForm = false;
 
+    // request backend api, populates shipment summary
     this.referenceNumber = this.searchQuery;
     this.shipmentService.getShipment(this.referenceNumber).subscribe({
       next: data => {
@@ -54,11 +58,11 @@ export class SearchShipmentComponent {
       },
       error: err => {
         this.errorMessage = 'Shipment not found.';
-        console.error('Error fetching shipment:', err);
       }
     });
   }
 
+  // clean variables, call get all api, populates all shipments attribute
   onGetAll() {
     this.errorMessage = '';
     this.shipmentSummary = null;

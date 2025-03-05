@@ -9,6 +9,7 @@
         <div class="form-group">
             <label for="referenceNumber">Reference Number:</label>
             <input type="text" id="referenceNumber" formControlName="referenceNumber" />
+            <!-- Related to Validators.required in ts, can't be empty -->
             <div *ngIf="shipmentForm.get('referenceNumber')?.invalid && shipmentForm.get('referenceNumber')?.touched">
                 Reference number is required.
             </div>
@@ -16,15 +17,15 @@
         <div class="form-group">
             <label for="shipmentDate">Shipment Date:</label>
             <input type="date" id="shipmentDate" formControlName="shipmentDate" />
-
-            <div *ngIf="shipmentForm.get('shipmentDate')?.invalid && shipmentForm.get('shipmentDate')?.touched">
+            <!-- Related to Validators.required in ts, can 't be empty -->
+            <div *ngIf="shipmentForm.get('shipmentDate ')?.invalid && shipmentForm.get('shipmentDate ')?.touched">
                 Shipment date is required.
             </div>
         </div>
-        <!-- Controls if button is accessable or not -->
+        <!-- Depends on Validators.required if true button is disabled -->
         <button type="submit" [disabled]="!shipmentForm.valid">Submit</button>
     </form>
-
+    <!-- After onSubmit, if request is succesful or failed. -->
     <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
     <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 </div>

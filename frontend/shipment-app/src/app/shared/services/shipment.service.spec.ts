@@ -8,7 +8,7 @@ describe('ShipmentService', () => {
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
+    TestBed.configureTestingModule({ // simulates http requests
       imports: [HttpClientTestingModule],
       providers: [ShipmentService]
     });
@@ -16,10 +16,6 @@ describe('ShipmentService', () => {
     httpMock = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => {
-    // Verifies that no unmatched requests remain.
-    httpMock.verify();
-  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();

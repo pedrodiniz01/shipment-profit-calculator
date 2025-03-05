@@ -1,5 +1,3 @@
-/* Full CSS File for search-shipment.component.css */
-
 .search-container {
     max-width: 500px;
     margin: 50px auto;
@@ -20,9 +18,6 @@
 .search-container form {
     margin-bottom: 20px;
 }
-
-
-/* Updated input width to 70% */
 
 .search-container input[type="text"],
 .search-container input[type="number"],
@@ -50,18 +45,12 @@
     cursor: not-allowed;
 }
 
-
-/* Container for buttons below the input field */
-
 .button-controls {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 10px;
 }
-
-
-/* Shipment Card Style for beautiful data display */
 
 .shipment-card {
     background-color: #ffffff;
@@ -82,9 +71,6 @@
     margin: 5px 0;
 }
 
-
-/* Make shipment cards clickable */
-
 .clickable {
     cursor: pointer;
     transition: box-shadow 0.3s ease;
@@ -93,9 +79,6 @@
 .clickable:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-
-/* Toggle form sections (Add Income and Add Cost) */
 
 .income-form,
 .cost-form,
@@ -124,9 +107,6 @@
     color: red;
 }
 
-
-/* Financial Summary Section */
-
 .details {
     margin-top: 20px;
     padding: 15px;
@@ -134,9 +114,6 @@
     border-radius: 6px;
     background-color: #f7f7f7;
 }
-
-
-/* Container for tables within the financial summary */
 
 .tables-container {
     display: flex;
@@ -149,9 +126,6 @@
     flex: 1 1 45%;
     min-width: 250px;
 }
-
-
-/* Enhanced Table Styles */
 
 .summary-table {
     width: 90%;
@@ -180,9 +154,6 @@
     background-color: #f1f1f1;
 }
 
-
-/* Headings styling for clarity in the details section */
-
 .details h4,
 .details h5 {
     margin-top: 20px;
@@ -192,9 +163,6 @@
 .details p {
     margin: 5px 0;
 }
-
-
-/* Grouped Action Buttons */
 
 .action-buttons {
     display: flex;
@@ -218,21 +186,13 @@
     background-color: #0056b3;
 }
 
-
-/* Positive and Negative Value Colors */
-
 .positive {
     color: #006400;
-    /* DarkGreen */
 }
 
 .negative {
     color: #f08080;
-    /* LightCoral */
 }
-
-
-/* Custom Form Layout for Add Income and Add Cost */
 
 .custom-form {
     display: flex;

@@ -48,8 +48,7 @@ export class ShipmentService {
   }
 
   // Error handling method
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    console.error('An error occurred:', error);
-    return throwError('Something went wrong; please try again later.');
+  private handleError(): Observable<never> {
+    return throwError('Error happened :(');
   }
 }

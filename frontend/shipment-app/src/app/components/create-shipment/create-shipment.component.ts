@@ -10,27 +10,33 @@ import { CreateShipment } from '../../shared/models/createshipment.model';
   styleUrls: ['./create-shipment.component.css'],
   standalone: false
 })
+
+// implement interface onInit
 export class CreateShipmentComponent implements OnInit {
+  // Like attributes
   shipmentForm!: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
 
+  // inject shipment service
   constructor(private shipmentService: ShipmentService) {}
 
+  // This method is called after component is created 
   ngOnInit(): void {
     this.shipmentForm = new FormGroup({
-      referenceNumber: new FormControl('', Validators.required),
+      referenceNumber: new FormControl('', Validators.required), // initial value is '', but can't be empty
       shipmentDate: new FormControl('', Validators.required)
     });
   }
 
   onSubmit(): void {
+    // from ngOnIt above
     if (this.shipmentForm.valid) {
-      // Type the payload as Shipment
+      // Payload should have CreateShipment structure
       const payload: CreateShipment = this.shipmentForm.value;
-      this.shipmentService.createShipment(payload).subscribe({
+      this.shipmentService.createShipment(payload).subscribe({ // subscribe deals with async backend response
         next: data => {
-          this.successMessage = 'Shipment created successfully!';
+          this.successMessage = 'Shipment created successfully!'; // updates succesMessage variable in html
           this.errorMessage = '';
         },
         error: error => {

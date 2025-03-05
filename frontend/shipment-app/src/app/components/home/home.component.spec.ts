@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 describe('HomeComponent', () => {
   let component: HomeComponent;
 
+  // Create new isolated component b4 each test
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent]
@@ -13,6 +14,6 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeTruthy(); // not null or undefined
   });
 });
