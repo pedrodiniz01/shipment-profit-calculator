@@ -16,7 +16,7 @@ public class ValidationUtils {
             throw new InvalidInputException("Reference number can't be null or empty.");
         }
         if (ObjectUtils.isEmpty(shipmentDate)) {
-            throw new InvalidInputException("Description can't be null or empty.");
+            throw new InvalidInputException("Shipment Date can't be null or empty.");
         }
     }
 
