@@ -9,6 +9,9 @@ import { CreateShipmentComponent } from '../components/create-shipment/create-sh
 import { SearchShipmentComponent } from '../components/search-shipment/search-shipment.component';
 import { HomeComponent } from '../components/home/home.component';
 
+// Import the standalone directive (omit the .ts extension)
+import { PositiveAmountValidatorDirective } from '../shared/services/validator.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +24,8 @@ import { HomeComponent } from '../components/home/home.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PositiveAmountValidatorDirective // import the standalone directive here
   ],
   providers: [],
   bootstrap: [AppComponent]

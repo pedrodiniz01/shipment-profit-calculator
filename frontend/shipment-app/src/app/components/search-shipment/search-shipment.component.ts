@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// Importe o serviço
 import { ShipmentService } from '../../shared/services/shipment.service';
 
 @Component({
@@ -34,7 +33,6 @@ export class SearchShipmentComponent {
   costSuccessMessage: string = '';
   costErrorMessage: string = '';
 
-  // Injete o ShipmentService em vez de HttpClient
   constructor(private shipmentService: ShipmentService) {}
 
   onSearch() {
@@ -50,7 +48,6 @@ export class SearchShipmentComponent {
     this.showCostForm = false;
 
     this.referenceNumber = this.searchQuery;
-    // Chama o serviço para buscar um shipment
     this.shipmentService.getShipment(this.referenceNumber).subscribe({
       next: data => {
         this.shipmentSummary = data;
@@ -69,11 +66,9 @@ export class SearchShipmentComponent {
     this.showIncomeForm = false;
     this.showCostForm = false;
     
-    // Reset the search bar value and reference number
     this.searchQuery = '';
     this.referenceNumber = '';
   
-    // Use the service to fetch all shipments
     this.shipmentService.getAllShipments().subscribe({
       next: data => {
         this.allShipments = data;
@@ -84,7 +79,6 @@ export class SearchShipmentComponent {
       }
     });
   }
-  
 
   onSelectShipment(shipment: any) {
     this.shipmentSummary = shipment;
@@ -99,7 +93,6 @@ export class SearchShipmentComponent {
     if (this.shipmentFinancialSummary) {
       this.shipmentFinancialSummary = null;
     } else {
-      // Close income and cost forms when opening financial summary
       this.showIncomeForm = false;
       this.showCostForm = false;
       this.refreshFinancialSummary();
@@ -109,12 +102,10 @@ export class SearchShipmentComponent {
   onAddIncome() {
     this.incomeSuccessMessage = '';
     this.incomeErrorMessage = '';
-    // Use the service to add income
     this.shipmentService.addIncome(this.referenceNumber, this.newIncome).subscribe({
       next: data => {
         this.incomeSuccessMessage = `Income added successfully!`;
         this.refreshShipmentSummary();
-        // Removed refreshFinancialSummary() so the financial summary won't auto-open
       },
       error: err => {
         this.incomeErrorMessage = 'Failed to add income. Please try again.';
@@ -126,12 +117,10 @@ export class SearchShipmentComponent {
   onAddCost() {
     this.costSuccessMessage = '';
     this.costErrorMessage = '';
-    // Use the service to add cost
     this.shipmentService.addCost(this.referenceNumber, this.newCost).subscribe({
       next: data => {
         this.costSuccessMessage = `Cost added successfully!`;
         this.refreshShipmentSummary();
-        // Removed refreshFinancialSummary() so the financial summary won't auto-open
       },
       error: err => {
         this.costErrorMessage = 'Failed to add cost. Please try again.';
@@ -141,7 +130,6 @@ export class SearchShipmentComponent {
   }
 
   refreshShipmentSummary() {
-    // Atualiza o shipmentSummary usando o serviço
     this.shipmentService.getShipment(this.referenceNumber).subscribe({
       next: refreshedData => {
         this.shipmentSummary = refreshedData;
@@ -153,7 +141,6 @@ export class SearchShipmentComponent {
   }
 
   refreshFinancialSummary() {
-    // Atualiza o financialSummary usando o serviço
     this.shipmentService.getFinancialSummary(this.referenceNumber).subscribe({
       next: data => {
         this.shipmentFinancialSummary = data;
@@ -165,38 +152,31 @@ export class SearchShipmentComponent {
   }
 
   toggleIncomeForm() {
-    // Reset income fields to default values each time the button is clicked
     this.newIncome = { type: 'CUSTOMER_PAYMENT', amount: null };
-    this.incomeSuccessMessage = ''; // Clear previous success message
+    this.incomeSuccessMessage = '';
   
     if (!this.showIncomeForm) {
-      // Open the income form and close the cost form and financial summary
       this.showIncomeForm = true;
       this.showCostForm = false;
       this.shipmentFinancialSummary = null;
     } else {
-      // Close the income form
       this.showIncomeForm = false;
     }
   }
   
   toggleCostForm() {
-    // Reset cost fields to default values each time the button is clicked
     this.newCost = { type: 'FUEL', amount: null };
-    this.costSuccessMessage = ''; // Clear previous success message
+    this.costSuccessMessage = '';
   
     if (!this.showCostForm) {
-      // Open the cost form and close the income form and financial summary
       this.showCostForm = true;
       this.showIncomeForm = false;
       this.shipmentFinancialSummary = null;
     } else {
-      // Close the cost form
       this.showCostForm = false;
     }
   }
   
-
   getIncomeKeys(): string[] {
     return this.shipmentFinancialSummary && this.shipmentFinancialSummary.incomeByCategory
       ? Object.keys(this.shipmentFinancialSummary.incomeByCategory)

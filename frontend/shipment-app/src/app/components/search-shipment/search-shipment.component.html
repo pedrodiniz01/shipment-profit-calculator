@@ -23,12 +23,12 @@
             <strong>Net Amount:</strong>
             <span [ngClass]="{'positive': shipmentSummary.netAmount > 0, 'negative': shipmentSummary.netAmount < 0}">
                 {{ shipmentSummary.netAmount }}
-              </span>
+            </span>
         </p>
         <p>
             <strong>Is Profit:</strong>
             <span [ngClass]="{'positive': shipmentSummary.netAmount > 0, 'negative': shipmentSummary.netAmount <= 0}">
-              {{ shipmentSummary.netAmount > 0 ? 'Yes' : 'No' }}
+                {{ shipmentSummary.netAmount > 0 ? 'Yes' : 'No' }}
             </span>
         </p>
     </div>
@@ -108,7 +108,7 @@
             </table>
         </div>
 
-
+        <!-- Income Form -->
         <div *ngIf="showIncomeForm" class="income-form">
             <form (ngSubmit)="onAddIncome()" #incomeForm="ngForm" class="custom-form">
                 <div class="form-field">
@@ -124,8 +124,11 @@
                 </div>
                 <div class="form-field">
                     <label for="amount">Amount:</label>
-                    <!-- Income amount can't be null -->
-                    <input type="number" id="amount" name="amount" [(ngModel)]="newIncome.amount" required />
+                    <!-- Income amount can't be null and must be greater than zero -->
+                    <input type="number" id="amount" name="amount" [(ngModel)]="newIncome.amount" appPositiveAmount required step="any" />
+                    <div *ngIf="incomeForm.controls['amount']?.errors?.['positiveAmount'] && incomeForm.controls['amount']?.touched">
+                        <small>The value must be greater than zero.</small>
+                    </div>
                 </div>
                 <button type="submit" [disabled]="!incomeForm.form.valid">Add Income</button>
             </form>
@@ -137,9 +140,8 @@
             </div>
         </div>
 
-        <!-- Add Cost Form with improved layout -->
+        <!-- Cost Form -->
         <div *ngIf="showCostForm" class="cost-form">
-
             <form (ngSubmit)="onAddCost()" #costForm="ngForm" class="custom-form">
                 <div class="form-field">
                     <label for="costType">Cost Type:</label>
@@ -156,8 +158,11 @@
                 </div>
                 <div class="form-field">
                     <label for="costAmount">Amount:</label>
-                    <!-- Cost amount can't be null -->
-                    <input type="number" id="costAmount" name="amount" [(ngModel)]="newCost.amount" required />
+                    <!-- Cost amount can't be null and must be greater than zero -->
+                    <input type="number" id="costAmount" name="amount" [(ngModel)]="newCost.amount" appPositiveAmount required step="any" />
+                    <div *ngIf="costForm.controls['amount']?.errors?.['positiveAmount'] && costForm.controls['amount']?.touched">
+                        <small>The value must be greater than zero.</small>
+                    </div>
                 </div>
                 <button type="submit" [disabled]="!costForm.form.valid">Add Cost</button>
             </form>
