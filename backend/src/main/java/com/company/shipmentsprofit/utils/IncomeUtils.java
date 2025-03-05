@@ -8,8 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class IncomeUtils {
-    public static void validateAndAddIncome(Shipment shipment, Income income) {
-        ValidationUtils.validateShipmentAndTransaction(shipment, income, income.getAmount());
+    public static void addIncome(Shipment shipment, Income income) {
         shipment.getIncomes().add(income);
         income.setShipment(shipment);
     }

@@ -4,7 +4,7 @@ import com.company.shipmentsprofit.enums.IncomeType;
 import lombok.Getter;
 
 @Getter
-public class AddIncomeRequest {
+public class AddIncomeRequest implements TransactionAmount{
     private String type;
     private Double amount;
 

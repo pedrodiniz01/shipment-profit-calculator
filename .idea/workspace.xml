@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="create new package exception">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/exception/handler/GlobalExceptionHandler.java" afterDir="false" />
+    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="fix exception message">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/TransactionAmount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/AddCostRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/AddCostRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/AddIncomeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/AddIncomeRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/service/ShipmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/service/ShipmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/CostUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/CostUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/IncomeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/IncomeUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/company/shipmentsprofit/utils/CostUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/company/shipmentsprofit/utils/CostUtilsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -39,6 +48,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.company.shipmentsprofit.entity" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\diniz\Desktop\repos\shipment-profit-calculator\backend" />
     </key>
@@ -65,9 +77,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="com.company.shipmentsprofit in shipment-profit-calculator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shipment-profit-calculator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.company.shipmentsprofit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.company.shipmentsprofit" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.ShipmentProfitCalculatorApplication" />
+        <item itemvalue="JUnit.com.company.shipmentsprofit in shipment-profit-calculator" />
         <item itemvalue="JUnit.All in shipment-profit-calculator" />
       </list>
     </recent_temporary>
@@ -105,14 +132,32 @@
       <option name="project" value="LOCAL" />
       <updated>1741089223517</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add postman collection">
+      <option name="closed" value="true" />
+      <created>1741200179566</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741200179566</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix exception message">
+      <option name="closed" value="true" />
+      <created>1741200398454</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741200398454</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="repackage backend" />
     <MESSAGE value="add input validation" />
     <MESSAGE value="create new package exception" />
-    <option name="LAST_COMMIT_MESSAGE" value="create new package exception" />
+    <MESSAGE value="add postman collection" />
+    <MESSAGE value="fix exception message" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix exception message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -121,6 +166,11 @@
           <url>file://$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/controller/ShipmentController.java</url>
           <line>29</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,6 +1,6 @@
 package com.company.shipmentsprofit.utils;
 
-import com.company.shipmentsprofit.entity.Shipment;
+import com.company.shipmentsprofit.dto.request.TransactionAmount;
 import com.company.shipmentsprofit.exception.InvalidInputException;
 import com.company.shipmentsprofit.exception.TransactionAmountException;
 import org.apache.logging.log4j.util.Strings;
@@ -20,13 +20,9 @@ public class ValidationUtils {
         }
     }
 
-    static <T> void validateShipmentAndTransaction(Shipment shipment, T transaction, Double amount) {
-        Objects.requireNonNull(shipment, "Shipment can't be null");
-        Objects.requireNonNull(transaction, "Transaction can't be null");
-
-        if (amount == null || amount <= 0) {
-            throw new TransactionAmountException("Transaction value must be greater than zero.");
+    public static void validateTransactionAmount(TransactionAmount transactionAmount) {
+        if (Objects.isNull(transactionAmount) || Objects.isNull(transactionAmount.getAmount()) || transactionAmount.getAmount() <= 0) {
+            throw new TransactionAmountException("Transaction amount can't be null.");
         }
     }
-
 }

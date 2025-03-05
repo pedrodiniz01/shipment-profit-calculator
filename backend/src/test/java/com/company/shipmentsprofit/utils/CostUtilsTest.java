@@ -32,7 +32,7 @@ class CostUtilsTest {
             newCost.setAmount(400.0);
 
             // When
-            CostUtils.validateAndAddCost(shipment, newCost);
+            CostUtils.addCost(shipment, newCost);
 
             // Then
             Assertions.assertNotNull(shipment.getCosts());

@@ -34,7 +34,6 @@ public class ShipmentService {
 
     @Transactional
     public Shipment createShipment(String referenceNumber, LocalDate shipmentDate) {
-
         ValidationUtils.validateCreateShipment(referenceNumber, shipmentDate);
 
         if (shipmentRepository.existsByReferenceNumber(referenceNumber)) {
@@ -63,11 +62,12 @@ public class ShipmentService {
 
     @Transactional
     public Income addIncomeToShipment(String referenceNumber, AddIncomeRequest request) {
+        ValidationUtils.validateTransactionAmount(request);
+
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Income income = mapper.toIncome(request);
-
-        IncomeUtils.validateAndAddIncome(shipment, income);
+        IncomeUtils.addIncome(shipment, income);
         NetAmountUtils.updateNetAmount(shipment);
 
         shipmentRepository.save(shipment);
@@ -77,11 +77,12 @@ public class ShipmentService {
 
     @Transactional
     public Cost addCostToShipment(String referenceNumber, AddCostRequest request) {
+        ValidationUtils.validateTransactionAmount(request);
+
         Shipment shipment = findShipmentByReferenceNumber(referenceNumber);
 
         Cost cost = mapper.toCost(request);
-
-        CostUtils.validateAndAddCost(shipment, cost);
+        CostUtils.addCost(shipment, cost);
         NetAmountUtils.updateNetAmount(shipment);
 
         shipmentRepository.save(shipment);
