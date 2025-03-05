@@ -25,19 +25,19 @@ describe('SearchShipmentComponent', () => {
   });
 
   it('should fetch shipment summary on onSearch()', () => {
-    // Set search query and call onSearch()
+    // set search value
     component.searchQuery = 'ABC123';
     component.onSearch();
 
-    // Expect a GET request to the correct URL
+    // expect get request
     const req = httpMock.expectOne('http://localhost:8080/api/shipments/ABC123');
     expect(req.request.method).toBe('GET');
 
-    // Simulate a successful response
+    // mock  a success response
     const dummyShipment = { referenceNumber: 'ABC123', shipmentDate: '2025-03-04' };
     req.flush(dummyShipment);
 
-    // Verify the component is updated
+    // verify
     expect(component.referenceNumber).toBe('ABC123');
     expect(component.shipmentSummary).toEqual(dummyShipment);
     expect(component.errorMessage).toBe('');
