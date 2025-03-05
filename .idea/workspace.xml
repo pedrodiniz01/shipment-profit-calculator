@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="fix exception message">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/TransactionAmount.java" afterDir="false" />
+    <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="Add transaction interface">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/AddCostRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/AddCostRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/AddIncomeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/dto/request/AddIncomeRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/service/ShipmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/service/ShipmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/CostUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/CostUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/IncomeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/IncomeUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/company/shipmentsprofit/utils/ValidationUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/company/shipmentsprofit/utils/CostUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/company/shipmentsprofit/utils/CostUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/data.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741200398454</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add transaction interface">
+      <option name="closed" value="true" />
+      <created>1741202270087</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1741202270087</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -157,7 +158,8 @@
     <MESSAGE value="create new package exception" />
     <MESSAGE value="add postman collection" />
     <MESSAGE value="fix exception message" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix exception message" />
+    <MESSAGE value="Add transaction interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add transaction interface" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
