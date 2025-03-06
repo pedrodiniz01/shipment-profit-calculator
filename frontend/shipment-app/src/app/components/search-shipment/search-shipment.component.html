@@ -1,9 +1,11 @@
 <div class="search-container">
+    <!-- Goes to '/'' path  -->
     <div class="return-button">
         <button routerLink="/">Home</button>
     </div>
 
     <h2>Search Shipment</h2>
+    <!-- creates searchForm variable that has specific properties and validations -->
     <form (ngSubmit)="onSearch()" #searchForm="ngForm">
         <!-- Saves in searchQuery variable  -->
         <input type="text" name="referenceNumber" [(ngModel)]="searchQuery" placeholder="Enter Reference Number" required />
@@ -14,7 +16,7 @@
         </div>
     </form>
 
-    <!-- This div is renders if shipmentSummary has data -->
+    <!-- This div is renders if shipmentSummary has data, when click on search button -->
     <div *ngIf="shipmentSummary" class="shipment-card">
         <h3>Shipment Summary</h3>
         <p><strong>Reference Number:</strong> {{ shipmentSummary.referenceNumber }}</p>
@@ -23,6 +25,7 @@
         <p><strong>Total Cost:</strong> {{ shipmentSummary.totalCost }}</p>
         <p>
             <strong>Net Amount:</strong>
+            <!-- ngClass adds CSS dinamicly -->
             <span [ngClass]="{'positive': shipmentSummary.netAmount > 0, 'negative': shipmentSummary.netAmount < 0}">
                 {{ shipmentSummary.netAmount }}
             </span>
@@ -35,7 +38,7 @@
         </p>
     </div>
 
-    <!-- Renders if allShipments has data and >0  -->
+    <!-- Renders if allShipments array has data and > 0 , triggered by getAll()  -->
     <div *ngIf="allShipments && allShipments.length > 0">
         <h3>All Shipments</h3>
         <!-- Iterates in allShipments array -->
@@ -48,46 +51,52 @@
                 <p><strong>Total Cost:</strong> {{ shipment.totalCost }}</p>
                 <p>
                     <strong>Net Amount:</strong>
+                    <!-- ngClass adds CSS dinamicly -->
                     <span [ngClass]="{'positive': shipment.netAmount > 0, 'negative': shipment.netAmount < 0}">
                         {{ shipment.netAmount }}
                     </span>
                 </p>
                 <p>
                     <strong>Profit:</strong>
+                    <!-- ngClass adds CSS dinamicly -->
                     <span [ngClass]="{'positive': shipment.isProfit, 'negative': !shipment.isProfit}">
+                        <!-- nAngular interprets semi colon as expression return HTML -->
                         {{ shipment.isProfit ? 'Yes' : 'No' }}
                     </span>
                 </p>
             </div>
-            <!-- Add an hr after each shipment -->
+            <!-- Add an hr after each shipment, but not on last entry -->
             <hr *ngIf="i < allShipments.length - 1" />
         </div>
     </div>
 
-    <!-- Renders shipment not found -->
+    <!-- Renders shipment not found, variable in TS -->
     <div *ngIf="errorMessage" class="error">
         {{ errorMessage }}
     </div>
-    <!-- If Shipment Summary is present, show button -->
+    <!-- If Shipment Summary is present, show 3 magic buttons -->
     <div *ngIf="shipmentSummary">
         <div class="action-buttons">
             <button (click)="onMoreDetails()">
                 <!-- If Shipment Summary is present, show should hide button -->
                 {{ shipmentFinancialSummary ? 'Hide Financial Summary' : 'More Financial Details' }}
             </button>
+            <!-- Calls toggleIncomeForm(), sets input with default values, close other forms -->
             <button (click)="toggleIncomeForm()">
                 {{ showIncomeForm ? 'Hide Add Income' : 'Add Income' }}
             </button>
+            <!-- same as  above -->
             <button (click)="toggleCostForm()">
                 {{ showCostForm ? 'Hide Add Cost' : 'Add Cost' }}
             </button>
         </div>
 
-        <!-- Display Financial Summary if available -->
+        <!-- Display Financial agregation data if available -->
         <div *ngIf="shipmentFinancialSummary" class="details">
             <table class="summary-table">
                 <thead>
                     <tr>
+                        <!-- Columns -->
                         <th>Income by Category</th>
                         <th>Amount</th>
                     </tr>
@@ -103,6 +112,7 @@
             <table class="summary-table">
                 <thead>
                     <tr>
+                        <!-- Columns -->
                         <th>Cost by Category</th>
                         <th>Amount</th>
                     </tr>
@@ -119,6 +129,7 @@
 
         <!-- Is displayed if showIncomeForm has data -->
         <div *ngIf="showIncomeForm" class="income-form">
+            <!-- Use Ngform allows access to properties and other mehtods -->
             <form (ngSubmit)="onAddIncome()" #incomeForm="ngForm" class="custom-form">
                 <div class="form-field">
                     <label for="type">Income Type:</label>
@@ -135,6 +146,7 @@
                     <label for="amount">Amount:</label>
                     <!-- Income amount can't be null and must be greater than zero | store in newIncome.amount -->
                     <input type="number" id="amount" name="amount" [(ngModel)]="newIncome.amount" positiveAmount required step="any" />
+                    <!-- Uses custom positiveAmount if that is true && touched, returns the error message -->
                     <div *ngIf="incomeForm.controls['amount']?.errors?.['positiveAmount'] && incomeForm.controls['amount']?.touched">
                         <small>The value must be greater than zero.</small>
                     </div>
@@ -168,10 +180,12 @@
                     <label for="costAmount">Amount:</label>
                     <!-- Cost amount can't be null and must be greater than zero, positive amount method -->
                     <input type="number" id="costAmount" name="amount" [(ngModel)]="newCost.amount" positiveAmount required step="any" />
+                    <!-- Uses custom positiveAmount if that is true && touched, returns the error message -->
                     <div *ngIf="costForm.controls['amount']?.errors?.['positiveAmount'] && costForm.controls['amount']?.touched">
                         <small>The value must be greater than zero.</small>
                     </div>
                 </div>
+                <!-- Can't submit if invalid -->
                 <button type="submit" [disabled]="!costForm.form.valid">Add Cost</button>
             </form>
             <div *ngIf="costSuccessMessage" class="success">

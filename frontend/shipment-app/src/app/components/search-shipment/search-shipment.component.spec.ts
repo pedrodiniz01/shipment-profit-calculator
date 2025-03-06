@@ -3,11 +3,13 @@ import { SearchShipmentComponent } from './search-shipment.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 
+// Jasmine Jeste method
 describe('SearchShipmentComponent', () => {
   let component: SearchShipmentComponent;
   let fixture: ComponentFixture<SearchShipmentComponent>;
   let httpMock: HttpTestingController;
 
+  // clean variables b4 each test
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [SearchShipmentComponent],
@@ -39,6 +41,7 @@ describe('SearchShipmentComponent', () => {
 
     // verify
     expect(component.referenceNumber).toBe('ABC123');
+    // verify data sent
     expect(component.shipmentSummary).toEqual(dummyShipment);
     expect(component.errorMessage).toBe('');
   });

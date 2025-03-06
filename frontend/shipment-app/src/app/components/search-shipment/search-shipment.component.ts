@@ -8,6 +8,7 @@ import { ShipmentService } from '../../shared/services/shipment.service';
   standalone: false 
 })
 export class SearchShipmentComponent {
+  // attributes
   searchQuery: string = '';
   referenceNumber: string = '';
   shipmentSummary: any;
@@ -103,17 +104,28 @@ export class SearchShipmentComponent {
     }
   }
 
+  refreshFinancialSummary() {
+    this.shipmentService.getFinancialSummary(this.referenceNumber).subscribe({
+      next: data => {
+        this.shipmentFinancialSummary = data;
+      },
+      error: err => {
+        console.error(err);
+      }
+    });
+  }
+
   onAddIncome() {
     this.incomeSuccessMessage = '';
     this.incomeErrorMessage = '';
     this.shipmentService.addIncome(this.referenceNumber, this.newIncome).subscribe({
       next: data => {
-        this.incomeSuccessMessage = `Income added successfully!`;
+        this.incomeSuccessMessage = `Income added with success.`;
         this.refreshShipmentSummary();
       },
       error: err => {
-        this.incomeErrorMessage = 'Failed to add income. Please try again.';
-        console.error('Error adding income:', err);
+        this.incomeErrorMessage = 'Income value cant be empty or negative.';
+        console.error(err);
       }
     });
   }
@@ -123,12 +135,12 @@ export class SearchShipmentComponent {
     this.costErrorMessage = '';
     this.shipmentService.addCost(this.referenceNumber, this.newCost).subscribe({
       next: data => {
-        this.costSuccessMessage = `Cost added successfully!`;
+        this.costSuccessMessage = `Cost added with success.`;
         this.refreshShipmentSummary();
       },
       error: err => {
-        this.costErrorMessage = 'Failed to add cost. Please try again.';
-        console.error('Error adding cost:', err);
+        this.costErrorMessage = 'Cost value cant be empty or negative.';
+        console.error(err);
       }
     });
   }
@@ -139,18 +151,7 @@ export class SearchShipmentComponent {
         this.shipmentSummary = refreshedData;
       },
       error: refreshError => {
-        console.error('Error refreshing shipment summary:', refreshError);
-      }
-    });
-  }
-
-  refreshFinancialSummary() {
-    this.shipmentService.getFinancialSummary(this.referenceNumber).subscribe({
-      next: data => {
-        this.shipmentFinancialSummary = data;
-      },
-      error: err => {
-        console.error('Error refreshing financial summary:', err);
+        console.error(refreshError);
       }
     });
   }
