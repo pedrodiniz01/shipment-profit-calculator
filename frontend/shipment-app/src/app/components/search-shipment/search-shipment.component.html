@@ -148,7 +148,7 @@
                     <input type="number" id="amount" name="amount" [(ngModel)]="newIncome.amount" positiveAmount required step="any" />
                     <!-- Uses custom positiveAmount if that is true && touched, returns the error message -->
                     <div *ngIf="incomeForm.controls['amount']?.errors?.['positiveAmount'] && incomeForm.controls['amount']?.touched">
-                        <small>The value must be greater than zero.</small>
+                        <small>The value must be > 0</small>
                     </div>
                 </div>
                 <button type="submit" [disabled]="!incomeForm.form.valid">Add Income</button>
@@ -182,7 +182,7 @@
                     <input type="number" id="costAmount" name="amount" [(ngModel)]="newCost.amount" positiveAmount required step="any" />
                     <!-- Uses custom positiveAmount if that is true && touched, returns the error message -->
                     <div *ngIf="costForm.controls['amount']?.errors?.['positiveAmount'] && costForm.controls['amount']?.touched">
-                        <small>The value must be greater than zero.</small>
+                        <small>The value must be > 0</small>
                     </div>
                 </div>
                 <!-- Can't submit if invalid -->
