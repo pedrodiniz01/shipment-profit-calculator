@@ -9,7 +9,7 @@ import { CreateShipmentComponent } from '../components/create-shipment/create-sh
 import { SearchShipmentComponent } from '../components/search-shipment/search-shipment.component';
 import { HomeComponent } from '../components/home/home.component';
 
-import { PositiveAmountValidatorDirective } from '../shared/services/validator.service';
+import { ValidatorService } from '../shared/services/validator.service';
 
 // Main module of the app, defines how application should be initiated - appComponent
 @NgModule({
@@ -25,7 +25,7 @@ import { PositiveAmountValidatorDirective } from '../shared/services/validator.s
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    PositiveAmountValidatorDirective 
+    ValidatorService 
   ],
   providers: [],
   bootstrap: [AppComponent]

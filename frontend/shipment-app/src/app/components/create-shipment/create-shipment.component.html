@@ -9,7 +9,7 @@
     <form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="referenceNumber">Reference Number:</label>
-            <input type="text" id="referenceNumber" formControlName="referenceNumber" />
+            <input type="text" id="referenceNumber" formControlName="referenceNumber" [notEmpty]="true" />
             <!-- Related to Validators.required in ts, can't be empty -->
             <div *ngIf="shipmentForm.get('referenceNumber')?.invalid && shipmentForm.get('referenceNumber')?.touched">
                 Reference number is required.

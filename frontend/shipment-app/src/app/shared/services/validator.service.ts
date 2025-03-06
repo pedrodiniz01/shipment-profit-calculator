@@ -1,26 +1,42 @@
-import { Directive } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 
-
 @Directive({
-  selector: '[positiveAmount]', // to be used in html
+  // Allows method being called in html
+  selector: '[positiveAmount],[notEmpty]',
   providers: [
     {
-      provide: NG_VALIDATORS,
-      useExisting: PositiveAmountValidatorDirective,
+      provide: NG_VALIDATORS, // angular will handle as validator
+      useExisting: ValidatorService,
       multi: true
     }
   ]
 })
-export class PositiveAmountValidatorDirective implements Validator {
+export class ValidatorService implements Validator {
+  // Attribute, starts as false
+  @Input() positiveAmount: boolean = false;
+  @Input() notEmpty: boolean = false;
+
   validate(control: AbstractControl): ValidationErrors | null {
-    // extracts control value 
     const value = control.value;
-    // If empty, let the required validator handle it.
-    if (value === null || value === undefined || value === '') {
-      return null;
+    const errors: ValidationErrors = {};
+
+    
+    if (this.notEmpty) {
+      if (value === null || value === undefined || (typeof value === 'string' && value.trim() === '')) {
+        errors['notEmpty'] = true;
+      }
     }
-    // If the value is less than or equal to zero, return an error.
-    return value > 0 ? null : { positiveAmount: true };
+
+   
+    if (this.positiveAmount) {
+      if (value !== null && value !== undefined && value !== '') {
+        if (typeof value === 'number' && value <= 0) {
+          errors['positiveAmount'] = true;
+        }
+      }
+    }
+
+    return Object.keys(errors).length ? errors : null;
   }
 }

@@ -145,7 +145,7 @@
                 <div class="form-field">
                     <label for="amount">Amount:</label>
                     <!-- Income amount can't be null and must be greater than zero | store in newIncome.amount -->
-                    <input type="number" id="amount" name="amount" [(ngModel)]="newIncome.amount" positiveAmount required step="any" />
+                    <input type="number" id="amount" name="amount" [(ngModel)]="newIncome.amount" [positiveAmount]="true" required step="any" />
                     <!-- Uses custom positiveAmount if that is true && touched, returns the error message -->
                     <div *ngIf="incomeForm.controls['amount']?.errors?.['positiveAmount'] && incomeForm.controls['amount']?.touched">
                         <small>The value must be > 0</small>
@@ -179,7 +179,7 @@
                 <div class="form-field">
                     <label for="costAmount">Amount:</label>
                     <!-- Cost amount can't be null and must be greater than zero, positive amount method -->
-                    <input type="number" id="costAmount" name="amount" [(ngModel)]="newCost.amount" positiveAmount required step="any" />
+                    <input type="number" id="amount" name="amount" [(ngModel)]="newCost.amount" [positiveAmount]="true" required step="any" />
                     <!-- Uses custom positiveAmount if that is true && touched, returns the error message -->
                     <div *ngIf="costForm.controls['amount']?.errors?.['positiveAmount'] && costForm.controls['amount']?.touched">
                         <small>The value must be > 0</small>
