@@ -5,7 +5,7 @@ import { ShipmentService } from '../../shared/services/shipment.service';
 import { CreateShipment } from '../../shared/models/createshipment.model';
 
 @Component({
-  selector: 'app-create-shipment',
+  selector: 'app-create-shipment', // can be reference in other html tag to reuse this component
   templateUrl: './create-shipment.component.html',
   styleUrls: ['./create-shipment.component.css'],
   standalone: false
@@ -18,10 +18,10 @@ export class CreateShipmentComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
 
-  // inject shipment service
+  // inject shipment service // AE
   constructor(private shipmentService: ShipmentService) {}
 
-  // This method is called after component is created 
+  // This method is called after component is created | Angular specific
   ngOnInit(): void {
     this.shipmentForm = new FormGroup({
       referenceNumber: new FormControl('', Validators.required), // initial value is '', but can't be empty

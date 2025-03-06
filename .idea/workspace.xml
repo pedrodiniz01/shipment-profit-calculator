@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86569141-bb91-4d6d-973f-ed80ff447f62" name="Changes" comment="Add transaction interface">
-      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/shipment-app/src/app/components/create-shipment/create-shipment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/shipment-app/src/app/components/create-shipment/create-shipment.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
