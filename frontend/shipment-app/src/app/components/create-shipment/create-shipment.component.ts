@@ -21,7 +21,7 @@ export class CreateShipmentComponent implements OnInit {
   // inject shipment service // AE
   constructor(private shipmentService: ShipmentService) {}
 
-  // This method is called after component is created | Angular specific
+  // This method is called after component is created | Angular specific | reactive forms
   ngOnInit(): void {
     this.shipmentForm = new FormGroup({
       referenceNumber: new FormControl('', Validators.required), // initial value is '', but can't be empty

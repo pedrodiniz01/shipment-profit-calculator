@@ -5,7 +5,7 @@
     </div>
 
     <h2>Search Shipment</h2>
-    <!-- creates searchForm variable that has specific properties and validations -->
+    <!-- creates searchForm variable that has specific properties and validations | below searchForm is validated - Template Driven Forms  -->
     <form (ngSubmit)="onSearch()" #searchForm="ngForm">
         <!-- Saves in searchQuery variable  -->
         <input type="text" name="referenceNumber" [(ngModel)]="searchQuery" placeholder="Enter Reference Number" required />
@@ -31,7 +31,7 @@
             </span>
         </p>
         <p>
-            <strong>Is Profit:</strong>
+            <strong>IsProfit:</strong>
             <span [ngClass]="{'positive': shipmentSummary.netAmount > 0, 'negative': shipmentSummary.netAmount <= 0}">
                 {{ shipmentSummary.netAmount > 0 ? 'Yes' : 'No' }}
             </span>
